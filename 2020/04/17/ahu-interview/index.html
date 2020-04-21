@@ -16,7 +16,7 @@
 <meta property="og:description" content="1、简述TCP的三次握手。 第一次：主机向服务器发送请求建立连接的请求，且将SYN的信号置1，设序列为x。  第二次：服务器接收到主机发出的请求后，向主机发送同意建立连接的信息，将SYN、ACK置1，序号为y，确认信号为x+1。  第三次：主机再次向服务器发送确认的确认信号，此时ACK&#x3D;1，序号为x+1，确认序号为y+1，第三次握手的时候可以携带数据。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-17T07:43:08.000Z">
-<meta property="article:modified_time" content="2020-04-17T07:49:26.107Z">
+<meta property="article:modified_time" content="2020-04-21T02:47:48.351Z">
 <meta property="article:author" content="杨小宾">
 <meta property="article:tag" content="计算机组成原理">
 <meta property="article:tag" content="数据库">
@@ -198,8 +198,8 @@
 </li>
 </ul>
 <h5 id="2、简述DNS解析IP的过程。（解析“www-abc-com”）"><a href="#2、简述DNS解析IP的过程。（解析“www-abc-com”）" class="headerlink" title="2、简述DNS解析IP的过程。（解析“www.abc.com”）"></a>2、简述DNS解析IP的过程。（解析“<a href="http://www.abc.com”）" target="_blank" rel="noopener">www.abc.com”）</a></h5><ul>
-<li>首先，dns客户端先检测自己的本地缓存查找是否有此ip的映射，</li>
-<li>如果没有，dns客户端则向本地服务器发出请求，查询此ip，</li>
+<li>首先，dns客户端则向本地服务器发出请求，查询此ip</li>
+<li>本地服务器先检测自己的本地缓存查找是否有此ip的映射，</li>
 <li>如果还是没有查到，则本地服务器向根服务器发出请求，根服务器接收数据以后，如果不知道该ip，会返回给本地服务器一个顶级域名服务器。(.com)</li>
 <li>然后本地服务器向该顶级域名服务器发送请求,该顶级域名服务器也不知道该ip的地址，向本地服务器发送一个参考答复，告诉本地服务器一个服务器地址。（abc.com）</li>
 <li>本地服务器在向该服务器发送请求，该服务器将该ip的地址返回给本地服务器。</li>
@@ -574,6 +574,11 @@
 <h5 id="86、PPP协议"><a href="#86、PPP协议" class="headerlink" title="86、PPP协议"></a>86、PPP协议</h5><ul>
 <li>点对点协议，工作于数据链路层，有LCP和NCP两个协议，通过LCP建立数据连接，通过NCP携带数据包，在同一条物理链路上进行点对点的数据传输，对数据链路层的帧不进行纠错，不需要序号，不需要流量控制</li>
 </ul>
+<h5 id="87、TCP-IP模型和OSI模型的区别"><a href="#87、TCP-IP模型和OSI模型的区别" class="headerlink" title="87、TCP/IP模型和OSI模型的区别"></a>87、TCP/IP模型和OSI模型的区别</h5><ul>
+<li>OSI精确的定义了服务、协议、接口三个概念而TCP/IP模型并没有明确的区分</li>
+<li>OSI产生在协议之前，因此他没有偏向任何协议，通用性好，而TCP/ IP模型是在协议产生以后对协议的描述。</li>
+<li>OSI在网络层支持无连接和面向连接的通信，在传输层仅仅支持有连接的通信，而TCP在网际层只支持无连接的通信，在传输层支持有链接和无连接两种通信</li>
+</ul>
 
 			
 		
@@ -673,6 +678,20 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/2020/04/19/jiwang%E2%80%94-fuxi/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          计算机网络知识点梳理
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
