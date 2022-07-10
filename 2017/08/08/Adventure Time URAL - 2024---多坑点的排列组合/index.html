@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="‘Here’s for you!’ shouted Finn fighting the Shadow Guardians. ‘Jake! Collectthe Darkness Rocks and let’s run from here!’Jake would have been glad to finish as soon as possible, because it was w">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Adventure Time URAL - 2024---多坑点的排列组合">
+<meta property="og:url" content="https://yxiaobin.github.io/2017/08/08/Adventure%20Time%20URAL%20-%202024---%E5%A4%9A%E5%9D%91%E7%82%B9%E7%9A%84%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/index.html">
+<meta property="og:site_name" content="杨小宾的个人博客">
+<meta property="og:description" content="‘Here’s for you!’ shouted Finn fighting the Shadow Guardians. ‘Jake! Collectthe Darkness Rocks and let’s run from here!’Jake would have been glad to finish as soon as possible, because it was w">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-08-08T13:18:54.000Z">
+<meta property="article:modified_time" content="2022-07-10T09:41:38.053Z">
+<meta property="article:author" content="杨小宾">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yxiaobin.github.io/2017/08/08/Adventure Time URAL - 2024---多坑点的排列组合/"/>
+
+
+
+
+
+  <title>Adventure Time URAL - 2024---多坑点的排列组合 | 杨小宾的个人博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨小宾的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2017/08/08/Adventure%20Time%20URAL%20-%202024---%E5%A4%9A%E5%9D%91%E7%82%B9%E7%9A%84%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨小宾的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Adventure Time URAL - 2024---多坑点的排列组合</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-08T21:18:54+08:00">
+                2017-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>‘Here’s for you!’ shouted Finn fighting the Shadow Guardians. ‘Jake! Collect<br>the Darkness Rocks and let’s run from here!’<br>Jake would have been glad to finish as soon as possible, because it was w<span id="more"></span>et<br>and sad in the Dangerous Cave, but it was not so easy to gather Rocks. So he<br>called BMO and asked him to help with choosing an optimal set of Rocks. Jake<br>told BMO that there were n Rocks in the Cave, and they were numbered with<br>different integers from 1 to n. Each Rock was painted one of 26 colors. Jake<br>also reminded BMO of Princess Bubblegum’s warning: there should be at most k<br>Rocks of pairwise different colors among the Rocks taken from the Cave. Only a<br>set of Rocks with this property is safe. If one takes an unsafe set of Rocks<br>from the Cave, Cosmic Evil will be awakened! Of course, Jake doesn’t want to<br>awaken the Evil, but he wants to take as many Darkness Rocks from the Cave as<br>possible. Help BMO to find the size of the largest safe set of Rocks and the<br>number of different safe sets of this size. Two sets of Rocks are different if<br>one of them contains a Rock with a number that is not contained in the other<br>set.<br>Input<br>The first line contains n lowercase English letters (1 ≤ n ≤ 10 5); each<br>letter denotes the color of a Rock. In the second line you are given the<br>integer k (1 ≤ k ≤ 26).<br>Output<br>Output two integers separated with a space: the size of the largest safe set<br>of Darkness Rocks and the number of different safe sets of this size.<br>Example<br>input output  </p>
+<p>abcde<br>1  </p>
+<p>1 5  </p>
+<p>ababac<br>2  </p>
+<p>5 1</p>
+<p>做题的时候注意一下几点</p>
+<p>1. 取石块的时候可以不连续</p>
+<p>2. 求组合数的时候 注意 c（m，n）=c（m，m-n），不然会爆掉</p>
+<p>3. k大于所给的字符串种类的时候，输出全部长度，且种类数为1</p>
+<p>4. 当最大的种类小于k的时候，假设加上第二大的数量大于k，注意把整个字符串第二大的数量全部统计完，从中取k-第一大的种类个，进行排列组合运算</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+char s[100100];
+int num[100100];//标记 每一个字符出现的个数-桶排
+long long int b[100100],bx; //标记每一个种类数出现的个数
+int cmp(int a, int b)
+&#123;
+    return a&gt;b;
+&#125;
+long long int f(int x, int y) //裸的排列组合计算
+&#123;
+    long long int a,b;
+    a=1;
+    b=1;
+    if(y&gt;x/2) //注意这种情况 不然的话，容易爆
+    &#123;
+        y=x-y;
+    &#125;
+    for(int i=y;i&gt;=1;i--)
+    &#123;
+        a=a*i;
+    &#125;
+    for(int i=x;i&gt;=x-y+1;i--)
+    &#123;
+        b=b*i;
+    &#125;
+    return b/a;
+&#125;
+int main ()
+&#123;
+    int n;
+    while(~scanf(&quot;%s %d&quot;,s,&amp;n))
+    &#123;
+        memset(num,0,sizeof(num));
+        memset(b,0,sizeof(b));
+        int len=strlen(s);
+        for(int i=0; i&lt;len; i++)
+        &#123;
+            num[s[i]-&#39;a&#39;]++; //统计字符串个数
+        &#125;
+        sort(num,num+30,cmp);
+        long long int Max=0;
+        for(int i=0;i&lt;n;i++)
+        &#123;
+            Max+=num[i]; // 找到最大的max
+        &#125;
+        for(int i=0; i&lt;26; i++)
+        &#123;
+            b[bx]++; 
+            if(num[i]!=num[i+1])
+            &#123;
+                 bx++;
+                 if(num[i+1]==0)
+                    break;
+            &#125;
+        &#125;
+       long long  int ans=0;
+       int flag=0;
+        for(int i=0;i&lt;bx;i++) // 找到什么情况下满足大于k个了，这个地方注意一定要吧满足大于k个的那个种类的数量全部找到，不要找到大于k的就break。
+        &#123;
+            if(ans+b[i]&gt;=n)
+            &#123;
+                int x=b[i];
+                int y=n-ans;
+                flag=1;
+                cout&lt;&lt;Max&lt;&lt;&#39; &#39;&lt;&lt;f(x,y)&lt;&lt;endl;
+                break;
+            &#125;
+            else
+            &#123;
+                ans+=b[i];
+            &#125;
+        &#125;
+        if(flag==0)
+        printf(&quot;%d 1\n&quot;,len);
+
+    &#125;
+    return 0;
+
+&#125;
+</code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/07/Piggy-Bank%20HDU%20-%201114%20%EF%BC%8D%EF%BC%8D%EF%BC%8D%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85%E6%A8%A1%E6%9D%BF/" rel="next" title="Piggy-Bank HDU - 1114 －－－完全背包模板">
+                <i class="fa fa-chevron-left"></i> Piggy-Bank HDU - 1114 －－－完全背包模板
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/09/FatMouse's%20Speed%20HDU%20-%201160%20--dp%E7%9A%84%E8%B7%AF%E5%BE%84%E8%AE%B0%E5%BF%86%E9%97%AE%E9%A2%98/" rel="prev" title="FatMouse's Speed HDU - 1160 --dp的路径记忆问题">
+                FatMouse's Speed HDU - 1160 --dp的路径记忆问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">138</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yxiaobin" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="yxiaobin2016@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨小宾</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Fat brother and Maze are playing a kind of special (hentai) game on an N*Mboard (N rows, M columns). At the beginning, each grid of this board isconsisting of grass or just empty and then they">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fire Game">
+<meta property="og:url" content="https://yxiaobin.github.io/2017/06/10/Fire%20Game/index.html">
+<meta property="og:site_name" content="杨小宾的个人博客">
+<meta property="og:description" content="Fat brother and Maze are playing a kind of special (hentai) game on an N*Mboard (N rows, M columns). At the beginning, each grid of this board isconsisting of grass or just empty and then they">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-06-10T13:14:14.000Z">
+<meta property="article:modified_time" content="2022-07-10T09:42:00.094Z">
+<meta property="article:author" content="杨小宾">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yxiaobin.github.io/2017/06/10/Fire Game/"/>
+
+
+
+
+
+  <title>Fire Game | 杨小宾的个人博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨小宾的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2017/06/10/Fire%20Game/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨小宾的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Fire Game</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-10T21:14:14+08:00">
+                2017-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%96%87%E7%AB%A0%E6%A0%87%E7%AD%BE/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构文章标签</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Fat brother and Maze are playing a kind of special (hentai) game on an N*M<br>board (N rows, M columns). At the beginning, each grid of this board is<br>consisting of grass or just empty and then they<span id="more"></span> start to fire all the grass.<br>Firstly they choose two grids which are consisting of grass and set fire. As<br>we all know, the fire can spread among the grass. If the grid (x, y) is firing<br>at time t, the grid which is adjacent to this grid will fire at time t+1 which<br>refers to the grid (x+1, y), (x-1, y), (x, y+1), (x, y-1). This process ends<br>when no new grid get fire. If then all the grid which are consisting of grass<br>is get fired, Fat brother and Maze will stand in the middle of the grid and<br>playing a MORE special (hentai) game. (Maybe it’s the OOXX game which<br>decrypted in the last problem, who knows.)  </p>
+<p>You can assume that the grass in the board would never burn out and the empty<br>grid would never get fire.  </p>
+<p>Note that the two grids they choose can be the same.<br>Input  </p>
+<p>The first line of the date is an integer T, which is the number of the text<br>cases.  </p>
+<p>Then T cases follow, each case contains two integers N and M indicate the size<br>of the board. Then goes N line, each line with M character shows the board.<br>“#” Indicates the grass. You can assume that there is at least one grid which<br>is consisting of grass in the board.  </p>
+<p>1 &lt;= T &lt;=100, 1 &lt;= n &lt;=10, 1 &lt;= m &lt;=10<br>Output  </p>
+<p>For each case, output the case number first, if they can play the MORE special<br>(hentai) game (fire all the grass), output the minimal time they need to wait<br>after they set fire, otherwise just output -1. See the sample input and output<br>for more details.<br>Sample Input  </p>
+<p>4<br>3 3<br>.#.  </p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>.#.<br>3 3<br>.#.<br>#.#<br>.#.<br>3 3<br>…<br>#.#<br>…<br>3 3  </p>
+<h3 id="-1"><a href="#-1" class="headerlink" title=""></a></h3><p>..#<br>#.#  </p>
+<p>Sample Output  </p>
+<p>Case 1: 1<br>Case 2: -1<br>Case 3: 0  </p>
+<p>Case 4: 2</p>
+<p>思路 ： 这是 一个同时对两个点进行 bfs 的题。其实类比与对一个点进行bfs，两个点和一个点其实一样，只不过一开始的时候进队列进两个就可以了。  </p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+using namespace std;
+struct node
+&#123;
+    int x,y;
+    int time;
+&#125; a[1500],m,n;//构建一个结构体，存点的坐标，和所需要的时间，数组结构体的作用是把所有的#坐标给记录下来
+int x,y;     // x行y列
+char map[50][50];
+int vis[50][50];
+int dx[5]= &#123;0,0,-1,1&#125;;
+int dy[5]= &#123;1,-1,0,0&#125;;
+int ax;  // 作为数组结构体的下标，同时也标记了整个map里面到底有多少个#
+int bfs(struct node a, struct node b)
+&#123;
+    memset(vis,0,sizeof(vis));  //清0数组
+    queue&lt;struct node &gt; q;
+    vis[a.x][a.y]=1;
+    a.time=0;
+    q.push(a);
+    vis[b.x][b.y]=1;
+    b.time=0;
+    q.push(b);
+    int sum=0;     // 记录 这一遍bfs 一共搜索到了几个#
+    int ans=-1;    // 记录搜完时间， 并且 返回用的，赋初值为负数。
+    int flag;
+    while(!q.empty())
+    &#123;
+        m=q.front();
+        q.pop();
+        flag=1;  //标记变量
+        sum++;
+        for(int i=0; i&lt;4; i++)
+        &#123;
+            int nx=m.x+dx[i];
+            int ny=m.y+dy[i];
+            if(map[nx][ny]==&#39;#&#39; &amp;&amp; vis[nx][ny]==0)
+            &#123;
+                vis[nx][ny]=1;
+                flag=0;  // 若果还能扫到#，标记变量变为0
+                struct node e;
+                e.x=nx;
+                e.y=ny;
+                e.time=m.time+1;;
+                q.push(e);
+            &#125;
+        &#125;
+        if(flag) // 标记变量依旧为1，说明，此时上述扫到的点周围四个方向依旧没有#了
+        &#123;
+            ans=max(ans, m.time);  // bfs 搜索进行到这个程度的时候所需要的时间，注意这个时候不一定代表这map里面所有的全部扫了一遍
+        &#125;
+    &#125;
+    if(sum&lt;ax) // 如果队列里面全部空了，还有没扫描到的那么sum小于ax
+        ans=999999;
+    return ans;
+&#125;
+int main ()
+&#123;
+    int t,tt;
+    cin &gt;&gt;t;
+    tt=1;
+    while(t--)
+    &#123;
+        cin &gt;&gt;x&gt;&gt;y;
+        ax=0;
+        memset(map,0,sizeof(map));
+        for(int i=1; i&lt;=x; i++)
+            for(int j=1; j&lt;=y; j++)
+            &#123;
+                cin &gt;&gt;map[i][j];
+                if(map[i][j]==&#39;#&#39;)
+                &#123;
+                    a[ax].x=i;
+                    a[ax].y=j;
+                    ax++;
+                &#125;
+            &#125;
+        int mm=99999;
+        for(int i=0; i&lt;ax; i++)
+            for(int j=0; j&lt;ax; j++)
+            &#123;
+                mm=min(mm, bfs (a[i],a[j]));  //  暴力遍历所有的情况，找到最优解
+            &#125;
+        if(mm==99999) mm=-1;
+        printf(&quot;Case %d: %d\n&quot;,tt++,mm);
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/07/Find%20The%20Multiple/" rel="next" title="Find The Multiple">
+                <i class="fa fa-chevron-left"></i> Find The Multiple
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/10/Virus%20%EF%BC%88%E6%9C%80%E9%95%BF%E4%B8%8A%E5%8D%87%E5%85%AC%E5%85%B1%E5%AD%90%E5%BA%8F%E5%88%97%EF%BC%89/" rel="prev" title="Virus （最长上升公共子序列）">
+                Virus （最长上升公共子序列） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">138</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yxiaobin" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="yxiaobin2016@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-1"><span class="nav-number">2.</span> <span class="nav-text"></span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨小宾</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="看了一篇帖子，  https:&#x2F;&#x2F;www.cnblogs.com&#x2F;dearvee&#x2F;p&#x2F;6558571.html 这篇帖子作为一个引导，摸索着完成了第一个爬虫，现在将过程总结如下。 搜狗图片地址为  http:&#x2F;&#x2F;pic.sogou.com&#x2F;  ，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用requests库爬取搜狗图片并存入文件夹下">
+<meta property="og:url" content="https://yxiaobin.github.io/2018/04/17/%E5%88%A9%E7%94%A8requests%E5%BA%93%E7%88%AC%E5%8F%96%E6%90%9C%E7%8B%97%E5%9B%BE%E7%89%87%E5%B9%B6%E5%AD%98%E5%85%A5%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B/index.html">
+<meta property="og:site_name" content="杨小宾的个人博客">
+<meta property="og:description" content="看了一篇帖子，  https:&#x2F;&#x2F;www.cnblogs.com&#x2F;dearvee&#x2F;p&#x2F;6558571.html 这篇帖子作为一个引导，摸索着完成了第一个爬虫，现在将过程总结如下。 搜狗图片地址为  http:&#x2F;&#x2F;pic.sogou.com&#x2F;  ，">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-04-17T14:29:42.000Z">
+<meta property="article:modified_time" content="2022-07-10T09:41:13.709Z">
+<meta property="article:author" content="杨小宾">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yxiaobin.github.io/2018/04/17/利用requests库爬取搜狗图片并存入文件夹下/"/>
+
+
+
+
+
+  <title>利用requests库爬取搜狗图片并存入文件夹下 | 杨小宾的个人博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨小宾的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2018/04/17/%E5%88%A9%E7%94%A8requests%E5%BA%93%E7%88%AC%E5%8F%96%E6%90%9C%E7%8B%97%E5%9B%BE%E7%89%87%E5%B9%B6%E5%AD%98%E5%85%A5%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨小宾的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">利用requests库爬取搜狗图片并存入文件夹下</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-17T22:29:42+08:00">
+                2018-04-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Python%E6%96%87%E7%AB%A0%E6%A0%87%E7%AD%BE/" itemprop="url" rel="index">
+                    <span itemprop="name">Python文章标签</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>看了一篇帖子， <a target="_blank" rel="noopener" href="https://www.cnblogs.com/dearvee/p/6558571.html"> https://www.cnblogs.com/dearvee/p/6558571.html
+</a><br>这篇帖子作为一个引导，摸索着完成了第一个爬虫，现在将过程总结如下。</p>
+<p>搜狗图片地址为 <a target="_blank" rel="noopener" href="http://pic.sogou.com/"> http://pic.sogou.com/ </a> ，<span id="more"></span>利用BeautifulSoup抓取<br>img 然后打印可以发现 img=“” 都是空的（具体空的详细方法在上面的链接中）</p>
+<p>通过F12 检查找到ssh</p>
+<p>![](<a target="_blank" rel="noopener" href="https://img-/">https://img-</a><br>blog.csdn.net/20180417222805214?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zODA2NDgxMA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)  </p>
+<p>可以看到 Requests 的 URL ，其中 有几个参数 category tag start len，</p>
+<p>![](<a target="_blank" rel="noopener" href="https://img-/">https://img-</a><br>blog.csdn.net/20180417222829197?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zODA2NDgxMA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)  </p>
+<p>实际上 category 指的是 美女 搞笑 壁纸 明星 等分栏</p>
+<p>tag指的是下面的 搞笑人物 招牌标题等</p>
+<p>start指从第几个开始 len指示一共需要多少个</p>
+<p>！！！！！！！！！</p>
+<p>这个时候又遇到一个问题，那就是上述的Url里面是一串字母而不是汉字，我们需要解决这个问题</p>
+<p>Python中有将汉字转化为Url中字符串的函数为 <strong>urllib.quote()</strong> （不会的同学可以百度）</p>
+<p>通过 Preview 可以看出 他们都在一个字段为 all_items 的json里面（代码中 all_items的由来）</p>
+<p>![](<a target="_blank" rel="noopener" href="https://img-/">https://img-</a><br>blog.csdn.net/20180417222839454?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zODA2NDgxMA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)  </p>
+<p>在分析其中具体的一个：</p>
+<p>![](<a target="_blank" rel="noopener" href="https://img-/">https://img-</a><br>blog.csdn.net/20180417222848708?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zODA2NDgxMA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)  </p>
+<p>每一个都储存在一个 ‘bthumbUrl’里面（代码中 该字段的由来）</p>
+<p>理清这些东西就可以写代码了 代码如下</p>
+<blockquote>
+<p>from bs4 import BeautifulSoup<br> import requests<br> import os<br> import json<br> import urllib<br> import random<br> #爬取图片目标地址</p>
+<p>print(“请从以下种类中（搞笑、美女、汽车）中选取一个输入”)<br> cat = raw_input()<br> print(“请输入爬取的个数”)<br> n = raw_input()<br> print(n)<br> #%E7%BE%8E%E5%A5%B3<br> print(‘正在搜索相关的图片’)<br> url =<br>“<a target="_blank" rel="noopener" href="http://pic.sogou.com/pics/channel/getAllRecomPicByTag.jsp?category=%E2%80%9D+">http://pic.sogou.com/pics/channel/getAllRecomPicByTag.jsp?category=”+</a><br>urllib.quote(cat) + “&amp;tag=%E6%B8%85%E7%BA%AF&amp;start=0&amp;len=”+ str(n)</p>
+<p>#利用requests库得到解析网页html<br> x = requests.get(url, timeout = 30)<br> x.raise_for_status();<br> html = x.text</p>
+<p>#利用json与热汤库定位解析<br> soup = BeautifulSoup(html,’html.parser’)<br> img = json.loads(html)<br> img = img[‘all_items’]</p>
+<p>#存取目标列表的列表名<br> ulist = []<br> #将图片url存入列表<br> for j in img:<br> ulist.append(j[‘bthumbUrl’])</p>
+<p>#存取图片的路径<br> ear =random.randint(1, 100254)<br> root = ‘D://pics//’</p>
+<p>print(‘————–正在下载图片————————-‘)</p>
+<p>#逐个爬取立标里面的url链接<br> k = 1<br> for i in ulist:<br> image_url =ulist[k-1]<br> image_path = root + str(k)+’.jpg’<br> try:<br> r = requests.get(image_url)<br> r.raise_for_status()<br> if not os.path.exists(root):<br> #创建文件夹<br> os.mkdir(root)<br> if not os.path.exists(image_path):<br> r = requests.get(image_url)<br> with open(image_path, ‘wb’) as file_obj:<br> file_obj.write(r.content)<br> print(‘第’+ str(k) +’张图片保留成功’)<br> except:<br> print(‘第’+ str(k) +’张图片爬取失败’)<br> k=k+1</p>
+<p>print(‘————–图片下载完成————————-‘)</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/25/Laravel%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0---%E9%A1%B9%E7%9B%AE%E9%A9%B1%E5%8A%A8%E5%AD%A6%E4%B9%A0/" rel="next" title="Laravel学习笔记---项目驱动学习">
+                <i class="fa fa-chevron-left"></i> Laravel学习笔记---项目驱动学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/04/19/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" rel="prev" title="计算机网络">
+                计算机网络 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">138</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yxiaobin" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="yxiaobin2016@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨小宾</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Problem Description   在一个遥远的数学魔法国度，小明在学习一个魔法，这个魔法需要一些施法材料，所幸的是施法材料已经准备好了，下一步就是建立魔法阵了，每一个施法材料都有一个特性值，表示为一个大于1小于10^7的整数，当且仅当一个材料的特性值是另一个材料的特性值的倍数的时候，他们才可以建立法力连接。比如说，一个特性值为6和一个特性值为9的施法材料是不可以建立法力连接的，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小明の魔法计划（最长倍数子序列）">
+<meta property="og:url" content="https://yxiaobin.github.io/2017/07/24/%E5%B0%8F%E6%98%8E%E3%81%AE%E9%AD%94%E6%B3%95%E8%AE%A1%E5%88%92%EF%BC%88%E6%9C%80%E9%95%BF%E5%80%8D%E6%95%B0%E5%AD%90%E5%BA%8F%E5%88%97%EF%BC%89/index.html">
+<meta property="og:site_name" content="杨小宾的个人博客">
+<meta property="og:description" content="Problem Description   在一个遥远的数学魔法国度，小明在学习一个魔法，这个魔法需要一些施法材料，所幸的是施法材料已经准备好了，下一步就是建立魔法阵了，每一个施法材料都有一个特性值，表示为一个大于1小于10^7的整数，当且仅当一个材料的特性值是另一个材料的特性值的倍数的时候，他们才可以建立法力连接。比如说，一个特性值为6和一个特性值为9的施法材料是不可以建立法力连接的，">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-07-24T13:07:20.000Z">
+<meta property="article:modified_time" content="2022-07-10T09:41:52.399Z">
+<meta property="article:author" content="杨小宾">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yxiaobin.github.io/2017/07/24/小明の魔法计划（最长倍数子序列）/"/>
+
+
+
+
+
+  <title>小明の魔法计划（最长倍数子序列） | 杨小宾的个人博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨小宾的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2017/07/24/%E5%B0%8F%E6%98%8E%E3%81%AE%E9%AD%94%E6%B3%95%E8%AE%A1%E5%88%92%EF%BC%88%E6%9C%80%E9%95%BF%E5%80%8D%E6%95%B0%E5%AD%90%E5%BA%8F%E5%88%97%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨小宾的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">小明の魔法计划（最长倍数子序列）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-24T21:07:20+08:00">
+                2017-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%96%87%E7%AB%A0%E6%A0%87%E7%AD%BE/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构文章标签</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Problem Description  </p>
+<p>在一个遥远的数学魔法国度，小明在学习一个魔法，这个魔法需要一些施法材料，所幸的是施法材料已经准备好了，下一步就是建立魔法阵了，每一个施法材料都有一个特性值，表示为一个大于1小于10<br>^<br>7的整数，当且仅当一个材料的特性值是另一个材料的特性值的倍数的时候，他们才可以建立法力连接。比如说，一个特性值为6和一个特性值为9的施法材料是不可以建立法力连接的，<span id="more"></span>而一个特性值为9和一个特性值为18的材料是可以建立法力连接的，值得注意的是法力连接是双向的。一个稳定的魔法阵要求属于这个法阵的材料之间不存在任何两个不直接连接的施法材料，比如说由(1,3,9)组成的魔法阵是稳定的，而(3,6,9)组成的魔法阵是不稳定的，因为值为6和值为9的材料无法建立连接。一个魔法阵的威力定义为这个法阵需要的材料的个数。<br>现在小明已经收集到了一些材料，他想要知道在知道他收集的材料的特性值的前提下，能建立的最大威力的魔法阵的消耗材料的数量是多少。<br>Input  </p>
+<p>首先一个整数T，代表数据组数(T&lt;=80)<br>对于每一组数据，第一行是一个整数n，代表小明收集的施法材料的数量(1 &lt; = n &lt; = 1000)<br>接下来一行一个有n个数，以空格隔开，分别代表n个施法材料的特性值，每个数1 &lt; = a &lt; = 10 ^ 7<br>具体见样例<br>Output  </p>
+<p>每组数据输出一行一个整数，代表最大威力的魔法阵的需要的材料的个数<br>Example Input  </p>
+<p>2<br>5<br>1 2 4 8 16<br>8<br>12 24 1 2 4 8 72 16  </p>
+<p>Example Output  </p>
+<p>5<br>6  </p>
+<p>Hint  </p>
+<p>魔法阵不一定是矩阵，施法材料可以随意摆放。</p>
+<p>思路：</p>
+<p>1. 所有的数据全部有倍数关系，若a，b，c 互为倍数，则有 a是b的倍数，b是c 的倍数.</p>
+<p>2. 将整个数组从大到小排序，然后，仿照找最长上升子序列，找最长倍数子序列</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;stack&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int a[12000];
+int dp[1200];
+int cmp (int x, int y)
+&#123;
+    return x&gt;y;
+&#125;
+int main()
+&#123;
+    int t, n, i, j;
+    scanf(&quot;%d&quot;,&amp;t);
+    while(t--)
+    &#123;
+        scanf(&quot;%d&quot;,&amp;n);
+        for(i=0; i&lt;n; i++)
+        &#123;
+            scanf(&quot;%d&quot;,&amp;a[i]);
+        &#125;
+        sort(a,a+n,cmp);
+        dp[0]=1;
+        for(i=1; i&lt;n; i++)
+        &#123;
+            dp[i]=1;
+            for(j=0; j&lt;i; j++)
+            &#123;
+                if(dp[j]&gt;=dp[i] &amp;&amp; a[j]%a[i]==0)
+                &#123;
+                    dp[i]=dp[j]+1;
+                &#125;
+            &#125;
+        &#125;
+        int max=-123456789;
+        for(i=0; i&lt;n; i++)
+        &#123;
+            if(dp[i]&gt;max)
+            &#123;
+                max=dp[i];
+            &#125;
+        &#125;
+        printf(&quot;%d\n&quot;,max);
+    &#125;
+
+&#125;
+</code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/24/%E8%B7%91%E8%BF%B7%E5%AE%AB%EF%BC%8D%EF%BC%8D%EF%BC%8Dbfs%E5%9B%9E%E6%BA%AF%E9%97%AE%E9%A2%98/" rel="next" title="跑迷宫－－－bfs回溯问题">
+                <i class="fa fa-chevron-left"></i> 跑迷宫－－－bfs回溯问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/24/Salty%20Fish---DP%E7%9A%84%E5%8F%98%E5%BD%A2/" rel="prev" title="Salty Fish---DP的变形">
+                Salty Fish---DP的变形 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">138</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yxiaobin" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="yxiaobin2016@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨小宾</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

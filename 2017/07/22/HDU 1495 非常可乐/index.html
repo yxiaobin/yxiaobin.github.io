@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="大家一定觉的运动以后喝可乐是一件很惬意的事情，但是seeyou却不这么认为。因为每次当seeyou买了可乐以后，阿牛就要求和seeyou一起分享这一瓶可乐，而且一定要喝的和seeyou一样多。但seeyou的手中只有两个杯子，它们的容量分别是N毫升和M 毫升 可乐的体积为S （S&lt;101）毫升 (正好装满一瓶) ，它们三个之间可以相互倒可乐 (都是没有刻度的，且S&#x3D;&#x3D;N+M，101＞S＞0，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HDU 1495 非常可乐">
+<meta property="og:url" content="https://yxiaobin.github.io/2017/07/22/HDU%201495%20%E9%9D%9E%E5%B8%B8%E5%8F%AF%E4%B9%90/index.html">
+<meta property="og:site_name" content="杨小宾的个人博客">
+<meta property="og:description" content="大家一定觉的运动以后喝可乐是一件很惬意的事情，但是seeyou却不这么认为。因为每次当seeyou买了可乐以后，阿牛就要求和seeyou一起分享这一瓶可乐，而且一定要喝的和seeyou一样多。但seeyou的手中只有两个杯子，它们的容量分别是N毫升和M 毫升 可乐的体积为S （S&lt;101）毫升 (正好装满一瓶) ，它们三个之间可以相互倒可乐 (都是没有刻度的，且S&#x3D;&#x3D;N+M，101＞S＞0，">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-07-22T02:29:48.000Z">
+<meta property="article:modified_time" content="2022-07-10T09:41:54.358Z">
+<meta property="article:author" content="杨小宾">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yxiaobin.github.io/2017/07/22/HDU 1495 非常可乐/"/>
+
+
+
+
+
+  <title>HDU 1495 非常可乐 | 杨小宾的个人博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨小宾的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2017/07/22/HDU%201495%20%E9%9D%9E%E5%B8%B8%E5%8F%AF%E4%B9%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨小宾的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HDU 1495 非常可乐</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-22T10:29:48+08:00">
+                2017-07-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%96%87%E7%AB%A0%E6%A0%87%E7%AD%BE/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构文章标签</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>大家一定觉的运动以后喝可乐是一件很惬意的事情，但是seeyou却不这么认为。因为每次当seeyou买了可乐以后，阿牛就要求和seeyou一起分享这一瓶可乐，而且一定要喝的和seeyou一样多。但seeyou的手中只有两个杯子，它们的容量分别是N<br>毫升和M 毫升 可乐的体积为S （S&lt;101）毫升 (正好装满一瓶) ，它们三个之间可以相互倒可乐 (都是没有刻度的，且<br>S==N+M，101＞S＞0，N<span id="more"></span>＞0，M＞0) 。聪明的ACMER你们说他们能平分吗？如果能请输出倒可乐的最少的次数，如果不能输出”NO”。<br>Input<br>三个整数 : S 可乐的体积 , N 和 M是两个杯子的容量，以”0 0 0”结束。<br>Output<br>如果能平分的话请输出最少要倒的次数，否则输出”NO”。<br>Sample Input  </p>
+<p>7 4 3<br>4 1 3<br>0 0 0  </p>
+<p>Sample Output  </p>
+<p>NO  </p>
+<p>3</p>
+<pre><code>// main函数里面有一个处理 使得三个“容器”容量大小的关系为S&gt;n&gt;m。这样的话，满足的条件一定是最后一个容器的量为0，前2个平分
+//坑点之一是如果输入的体积Ｓ为奇数的话，那么他一定不能平分到两个容器里。
+//不难想象，３个杯子共有６种到法（1到２，　１到３，２到１，２到３，３到１，３到２　）
+//每种到法都有两种结果（以１到２为例：１种的全部到进２中，１把２倒满后１种还有剩余）
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;queue&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+int flag;
+int v,n,m;
+int vis[120][120][120];
+struct node
+&#123;
+    int x,y,z;
+    int step;
+&#125; a,b;
+void bfs()
+&#123;
+    queue&lt;struct node&gt;q;
+    a.x=v;
+    a.y=0;
+    a.z=0;
+    a.step=0;
+    vis[a.x][a.y][a.z]=1;
+    q.push(a);
+    while(!q.empty())
+    &#123;
+        b=q.front();
+        q.pop();
+        if(b.z==0 &amp;&amp; b.y==b.x &amp;&amp; b.y+b.x==v)  //实现的条件
+        &#123;
+            flag=1;
+            cout&lt;&lt;b.step&lt;&lt;endl;
+            return ;
+        &#125;
+        if(b.x!=0)/*ｓ向n m里面到*/
+        &#123;
+            if(b.x &gt; n-b.y)/*因为容器里面可能有一定量的可乐,所以要明确如何表示还能往该容器里面到多少体积的可乐*/
+            &#123;
+                a.x=b.x-n+b.y;
+                a.y=n;
+                a.z=b.z;
+                a.step=b.step+1;
+            &#125;
+            else
+            &#123;
+                a.x=0;
+                a.y=b.y+b.x;
+                a.z=b.z;
+                a.step=b.step+1;
+            &#125;
+            if(!vis[a.x][a.y][a.z])
+            &#123;
+                vis[a.x][a.y][a.z]=1;
+                q.push(a);
+            &#125;
+            if(b.x &gt; m-b.z)
+            &#123;
+                a.x=b.x-m+b.z;
+                a.y=b.y;
+                a.z=m;
+                a.step=b.step+1;
+            &#125;
+            else
+            &#123;
+                a.x=0;
+                a.y=b.y;
+                a.z=b.x+b.z;
+                a.step=b.step+1;
+            &#125;
+            if(!vis[a.x][a.y][a.z])
+            &#123;
+                vis[a.x][a.y][a.z]=1;
+                q.push(a);
+            &#125;
+        &#125;
+        if(b.y!=0)//ｎ向ｓ　ｍ里面到
+        &#123;
+            if(b.y &gt; v-b.x)
+            &#123;
+                a.x=v;
+                a.y=b.y-v+b.x;
+                a.z=b.z;
+                a.step=b.step+1;
+            &#125;
+            else
+            &#123;
+                a.x=b.x+b.y;
+                a.y=0;
+                a.z=b.z;
+                a.step=b.step+1;
+            &#125;
+            if(!vis[a.x][a.y][a.z])
+            &#123;
+                vis[a.x][a.y][a.z]=1;
+                q.push(a);
+            &#125;
+
+            if(b.y &gt; m-b.z)
+            &#123;
+                a.x=b.x;
+                a.y=b.y-m+b.z;
+                a.z=m;
+                a.step=b.step+1;
+            &#125;
+            else
+            &#123;
+                a.x=b.x;
+                a.y=0;
+                a.z=b.z+b.y;
+                a.step=b.step+1;
+            &#125;
+            if(!vis[a.x][a.y][a.z])
+            &#123;
+                vis[a.x][a.y][a.z]=1;
+                q.push(a);
+            &#125;
+
+        &#125;
+        if(b.z!=0)/*m向n,s里面到*/
+        &#123;
+            if(b.z &gt; v-b.x)
+            &#123;
+                a.x=v;
+                a.y=b.y;
+                a.z=b.z-v+b.x;
+                a.step=b.step+1;
+            &#125;
+            else
+            &#123;
+                a.x=b.x+b.z;
+                a.y=b.y;
+                a.z=0;
+                a.step=b.step+1;
+            &#125;
+            if(!vis[a.x][a.y][a.z])
+            &#123;
+                vis[a.x][a.y][a.z]=1;
+                q.push(a);
+            &#125;
+
+            if(b.z &gt; n-b.y)
+            &#123;
+                a.x=b.x;
+                a.y=n;
+                a.z=b.z-n+b.y;
+                a.step=b.step+1;
+            &#125;
+            else
+            &#123;
+                a.x=b.x;
+                a.y=b.y+b.z;
+                a.z=0;
+                a.step=b.step+1;
+            &#125;
+            if(!vis[a.x][a.y][a.z])
+            &#123;
+                vis[a.x][a.y][a.z]=1;
+                q.push(a);
+            &#125;
+        &#125;
+    &#125;
+
+&#125;
+int main ()
+&#123;
+    while (cin&gt;&gt;v&gt;&gt;n&gt;&gt;m)
+    &#123;
+        flag=0;
+        if(n==0 &amp;&amp; m==0 &amp;&amp; v==0) break;
+        if(n&lt;m)
+        &#123;
+            int t=n;
+            n=m;
+            m=t;
+        &#125;
+        if(v%2 != 0)
+            cout&lt;&lt;&quot;NO&quot;&lt;&lt;endl;
+        else
+        &#123;
+            memset(vis,0,sizeof(vis));
+            bfs();
+            if(!flag)
+            cout&lt;&lt;&quot;NO&quot;&lt;&lt;endl;
+        &#125;
+
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/26/%E5%9B%BE%E7%BB%93%E6%9E%84%E7%BB%83%E4%B9%A0%E2%80%94%E2%80%94%E6%9C%80%E7%9F%AD%E8%B7%AF%E5%BE%84/" rel="next" title="图结构练习——最短路径">
+                <i class="fa fa-chevron-left"></i> 图结构练习——最短路径
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/23/POJ----%20Pots%20----BFS%E7%9A%84%E8%B7%AF%E5%BE%84%E5%9B%9E%E6%BA%AF%E9%97%AE%E9%A2%98/" rel="prev" title="POJ---- Pots ----BFS的路径回溯问题">
+                POJ---- Pots ----BFS的路径回溯问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">138</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yxiaobin" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="yxiaobin2016@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨小宾</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

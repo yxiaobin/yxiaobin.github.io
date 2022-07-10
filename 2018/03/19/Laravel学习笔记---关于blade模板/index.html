@@ -1,0 +1,856 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一： 模板语法 1. {  {}}—传递参数 控制器中 return view 的第二个参数是传递一个数组 比如： public  function  show()&amp;#123;     return view(&quot;post&#x2F;show&quot;,[&#39;tittle&#39;&#x3D;&gt;&#39;this is tittle&#39;]); &amp;#125;  那在前端文件 show.bla">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Laravel学习笔记---关于blade模板">
+<meta property="og:url" content="https://yxiaobin.github.io/2018/03/19/Laravel%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0---%E5%85%B3%E4%BA%8Eblade%E6%A8%A1%E6%9D%BF/index.html">
+<meta property="og:site_name" content="杨小宾的个人博客">
+<meta property="og:description" content="一： 模板语法 1. {  {}}—传递参数 控制器中 return view 的第二个参数是传递一个数组 比如： public  function  show()&amp;#123;     return view(&quot;post&#x2F;show&quot;,[&#39;tittle&#39;&#x3D;&gt;&#39;this is tittle&#39;]); &amp;#125;  那在前端文件 show.bla">
+<meta property="og:locale">
+<meta property="article:published_time" content="2018-03-19T13:15:38.000Z">
+<meta property="article:modified_time" content="2022-07-10T09:41:15.353Z">
+<meta property="article:author" content="杨小宾">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yxiaobin.github.io/2018/03/19/Laravel学习笔记---关于blade模板/"/>
+
+
+
+
+
+  <title>Laravel学习笔记---关于blade模板 | 杨小宾的个人博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨小宾的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2018/03/19/Laravel%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0---%E5%85%B3%E4%BA%8Eblade%E6%A8%A1%E6%9D%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨小宾的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Laravel学习笔记---关于blade模板</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-19T21:15:38+08:00">
+                2018-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Laravel/" itemprop="url" rel="index">
+                    <span itemprop="name">Laravel</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一： 模板语法</p>
+<p>1. {  {}}—传递参数</p>
+<p>控制器中 return view 的第二个参数是传递一个数组</p>
+<p>比如：</p>
+<pre><code>public  function  show()&#123;
+    return view(&quot;post/show&quot;,[&#39;tittle&#39;=&gt;&#39;this is tittle&#39;]);
+&#125;
+</code></pre>
+<p>那在前端文件 show.blade.php中的参数<span id="more"></span>传递语句为：</p>
+<pre><code>&lt; **h2** class= **&quot;blog-post-title&quot;** &gt;&#123;&#123; $tittle &#125;&#125;&lt;/ **h2** &gt;
+</code></pre>
+<p>2.@if()开始 用@endif()结尾的 条件语句</p>
+<p>比如：</p>
+<pre><code>public  function  show()&#123;
+    return view(&quot;post/show&quot;,[&#39;tittle&#39;=&gt;&#39;this is tittle&#39;, &#39;isShow&#39;=&gt;false]);
+&#125;
+</code></pre>
+<p>前端显示语句为：</p>
+<pre><code> @if($isShow == true)
+&lt; **a** style= **&quot;** _margin_ : **auto** **&quot;** href= **&quot;/posts/62/edit&quot;** &gt;
+     &lt; **span** class= **&quot;glyphicon glyphicon-pencil&quot;** aria-hidden= **&quot;true&quot;** &gt;&lt;/ **span** &gt;
+ &lt;/ **a** &gt;
+ @endif
+</code></pre>
+<p>上式子可以看出，因为 isShow 的值是false 所以此a标签不会显示</p>
+<p>3.@foreach() 开头@endforeach 结束的 循环语句</p>
+<p>百度用法如下：</p>
+<pre><code>foreach 可以遍历数组与对象，它会把当前单元的键名也会在每次循环中被赋给变量 $key，值赋给变量$val，例如  
+ $row=array(&#39;one&#39;=&gt;1,&#39;two&#39;=&gt;2);  
+foreach($row as $key=&gt;$val)&#123;  
+    echo $key.&#39;--&#39;.$val;  
+  
+&#125;  
+[第一次](https://www.baidu.com/s?wd=%E7%AC%AC%E4%B8%80%E6%AC%A1&amp;tn=44039180_cpr&amp;fenlei=mv6quAkxTZn0IZRqIHckPjm4nH00T1Y4uAn1uH6LnWbvuymdrAfz0ZwV5Hcvrjm3rH6sPfKWUMw85HfYnjn4nH6sgvPsT6KdThsqpZwYTjCEQLGCpyw9Uz4Bmy-bIi4WUvYETgN-TLwGUv3EPHTYnWfvPjn3)遍历的$key是one，$val是1；  
+第二次遍历的$key是two，$val是2；
+</code></pre>
+<p>举例如下：</p>
+<pre><code>public  function  index()&#123;
+    $post = [
+        [&#39;tittle&#39; =&gt; &#39;this is tittle1&#39;],
+        [&#39;tittle&#39; =&gt; &#39;this is tittle2&#39;],
+        [&#39;tittle&#39; =&gt; &#39;this is tittle3&#39;]
+    ];
+    return view(&quot;post/index&quot;, [&#39;post&#39; =&gt; $post]);
+&#125;
+</code></pre>
+<p>前端显示如下：</p>
+<pre><code>@foreach($post as $key)
+&lt; **div** class= **&quot;blog-post&quot;** &gt;
+    &lt; **h2** class= **&quot;blog-post-title&quot;** &gt;&lt; **a** href= **&quot;/posts/62&quot;** &gt;&#123;&#123;$key['tittle']&#125;&#125;&lt;/ **a** &gt;&lt;/ **h2** &gt;
+</code></pre>
+<p>！！！！！结尾还有  <em>@endforeach</em></p>
+<p>二 参数传递 laravel 框架自带的参数传递方法 compact</p>
+<pre><code>public  function  index()&#123;
+    $post = [
+        [&#39;tittle&#39; =&gt; &#39;this is tittle1&#39;],
+        [&#39;tittle&#39; =&gt; &#39;this is tittle2&#39;],
+        [&#39;tittle&#39; =&gt; &#39;this is tittle3&#39;]
+    ];
+    $pp = [&#39;key&#39; =&gt; &#39;value&#39;];
+    return view(&quot;post/index&quot;, _compact_ (&#39;post&#39;, &#39;pp&#39;));
+   // return view(&quot;post/index&quot;, [&#39;post&#39; =&gt; $post]);
+&#125;
+</code></pre>
+<p>相比与上一个传递数组更加的简便而已</p>
+<p>三：继承模型—制作顶部尾部侧边栏框架</p>
+<p>语法知识点：</p>
+<p>1.@yield()</p>
+<p>2.@extends()</p>
+<p>3.section() @endsection</p>
+<p>4.@include（）</p>
+<p>@yiled(‘content’)</p>
+<p>在模板中合适的位置 填充次语句，表示内容</p>
+<pre><code>&lt; **div** class= **&quot;row&quot;** &gt;
+    @yield(&#39;content&#39;)
+</code></pre>
+<p>在引用模板的语句中利用语句填充内容</p>
+<pre><code>@extends(&#39;layout.main&#39; )
+@section(&#39;content&#39;)
+
+
+@endsection
+</code></pre>
+<p>@extends（）表是引用模板main</p>
+<p>@section（‘content’）与 语句 @endsection 之间填充content内容</p>
+<p>将main.blade.php 分层， 可以分成 nav footer sidebar 三块</p>
+<p>将一块分出去 另一块用 @include（”layout.nav”）就可以引用使用了</p>
+<pre><code>@include(&quot;layout.header&quot;)
+&lt; **div** class= **&quot;container&quot;** &gt;
+
+    &lt; **div** class= **&quot;blog-header&quot;** &gt;
+    &lt;/ **div** &gt;
+    &lt; **div** class= **&quot;row&quot;** &gt;
+        @yield(&#39;content&#39;)
+        @include(&quot;layout.sidebar&quot;)
+    &lt;/ **div** &gt;    &lt;/ **div** &gt;&lt;!-- /.row --&gt;
+&lt;/ **div** &gt;&lt;!-- /.container --&gt;
+@include(&quot;layout.footer&quot;)
+</code></pre>
+<p>举个例子：footer.blade.php 中的内容为</p>
+<pre><code>&lt; **footer** class= **&quot;blog-footer&quot;** &gt;
+    &lt; **p** &gt;Blog template built for &lt; **a** href= **&quot;http://getbootstrap.com&quot;** &gt;Bootstrap&lt;/ **a** &gt; by &lt; **a** href= **&quot;https://twitter.com/mdo&quot;** &gt;@mdo&lt;/ **a** &gt;.&lt;/ **p** &gt;
+    &lt; **p** &gt;
+        &lt; **a** href= **&quot;#&quot;** &gt;Back to top&lt;/ **a** &gt;
+    &lt;/ **p** &gt;
+&lt;/ **footer** &gt;
+</code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/18/Laravel%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0----%E5%85%B3%E4%BA%8E%E8%B7%AF%E7%94%B1/" rel="next" title="Laravel学习笔记----关于路由">
+                <i class="fa fa-chevron-left"></i> Laravel学习笔记----关于路由
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/21/laravel%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0---%E5%85%B3%E4%BA%8E%E6%A8%A1%E5%9E%8B/" rel="prev" title="laravel学习笔记---关于模型">
+                laravel学习笔记---关于模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">138</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yxiaobin" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="yxiaobin2016@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨小宾</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

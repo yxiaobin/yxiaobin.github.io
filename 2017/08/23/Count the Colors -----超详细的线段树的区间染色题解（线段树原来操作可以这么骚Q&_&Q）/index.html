@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Painting some colored segments on a line, some previously painted segments maybe covered by some the subsequent ones.   Your task is counting the segments of different colors you can see at last.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Count the Colors -----超详细的线段树的区间染色题解（线段树原来操作可以这么骚Q&amp;_&amp;Q）">
+<meta property="og:url" content="https://yxiaobin.github.io/2017/08/23/Count%20the%20Colors%20-----%E8%B6%85%E8%AF%A6%E7%BB%86%E7%9A%84%E7%BA%BF%E6%AE%B5%E6%A0%91%E7%9A%84%E5%8C%BA%E9%97%B4%E6%9F%93%E8%89%B2%E9%A2%98%E8%A7%A3%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%8E%9F%E6%9D%A5%E6%93%8D%E4%BD%9C%E5%8F%AF%E4%BB%A5%E8%BF%99%E4%B9%88%E9%AA%9AQ&_&Q%EF%BC%89/index.html">
+<meta property="og:site_name" content="杨小宾的个人博客">
+<meta property="og:description" content="Painting some colored segments on a line, some previously painted segments maybe covered by some the subsequent ones.   Your task is counting the segments of different colors you can see at last.">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-08-23T12:45:23.000Z">
+<meta property="article:modified_time" content="2022-07-10T09:41:24.886Z">
+<meta property="article:author" content="杨小宾">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yxiaobin.github.io/2017/08/23/Count the Colors -----超详细的线段树的区间染色题解（线段树原来操作可以这么骚Q&_&Q）/"/>
+
+
+
+
+
+  <title>Count the Colors -----超详细的线段树的区间染色题解（线段树原来操作可以这么骚Q&_&Q） | 杨小宾的个人博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨小宾的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2017/08/23/Count%20the%20Colors%20-----%E8%B6%85%E8%AF%A6%E7%BB%86%E7%9A%84%E7%BA%BF%E6%AE%B5%E6%A0%91%E7%9A%84%E5%8C%BA%E9%97%B4%E6%9F%93%E8%89%B2%E9%A2%98%E8%A7%A3%EF%BC%88%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%8E%9F%E6%9D%A5%E6%93%8D%E4%BD%9C%E5%8F%AF%E4%BB%A5%E8%BF%99%E4%B9%88%E9%AA%9AQ&_&Q%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨小宾的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Count the Colors -----超详细的线段树的区间染色题解（线段树原来操作可以这么骚Q&_&Q）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-23T20:45:23+08:00">
+                2017-08-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%96%87%E7%AB%A0%E6%A0%87%E7%AD%BE/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构文章标签</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Painting some colored segments on a line, some previously painted segments may<br>be covered by some the subsequent ones.  </p>
+<p>Your task is counting the segments of different colors you can see at last. <span id="more"></span> </p>
+<p>Input  </p>
+<p>The first line of each data set contains exactly one integer n, 1 &lt;= n &lt;=<br>8000, equal to the number of colored segments.  </p>
+<p>Each of the following n lines consists of exactly 3 nonnegative integers<br>separated by single spaces:  </p>
+<p>x1 x2 c  </p>
+<p>x1 and x2 indicate the left endpoint and right endpoint of the segment, c<br>indicates the color of the segment.  </p>
+<p>All the numbers are in the range [0, 8000], and they are all integers.  </p>
+<p>Input may contain several data set, process to the end of file.  </p>
+<p>Output  </p>
+<p>Each line of the output should contain a color index that can be seen from the<br>top, following the count of the segments of this color, they should be printed<br>according to the color index.  </p>
+<p>If some color can’t be seen, you shouldn’t print it.  </p>
+<p>Print a blank line after every dataset.  </p>
+<p>Sample Input  </p>
+<p>5<br>0 4 4<br>0 3 1<br>3 4 2<br>0 2 2<br>0 2 3<br>4<br>0 1 1<br>3 4 1<br>1 3 2<br>1 3 1<br>6<br>0 1 0<br>1 2 1<br>2 3 1<br>1 2 0<br>2 3 0<br>1 2 1  </p>
+<p>Sample Output  </p>
+<p>1 1<br>2 1<br>3 1  </p>
+<p>1 1  </p>
+<p>0 2  </p>
+<p>1 1</p>
+<p>思路：</p>
+<p>这道题的题意不是那么好理解，在综合了 百度谷歌有道等几个老师的讲解之后，自己理解的题意：<br>对一个区间【0，n】进行染色，颜色可以覆盖，最终显现最后涂该区域颜料的颜色，<br>未涂色前，该区间是不可见的，只能看到涂了颜色的部分，问n此操作以后，可以看到几条颜色带，并输出该颜色的数量（有序）。</p>
+<p>注意：</p>
+<p>这道题是给区间染色，不是对点进行染色。举个栗子，假设 有 0 2 3 操作语句，代表着 0到2 之间的线段染成颜色3 而不是对点0 1 2<br>进行染色。这就迎来了一个问题，如果我们用线段树来思考这道题（因为这是线段树专题的题……）的话，线段树中的叶子节点放什么？根节点放什么？我一开始的想法是在0和1<br>的 父亲节点放 0 1 区间的颜色， 1 和 2 的父亲放1 2 区间的颜色， 这样的话 对于1 这个节点来说是两个父亲节点的儿子，这样就不是完全二叉树了<br>。（尴尬……</p>
+<p>上述想法没有行通，区间【0,2】 中有三个点，2条线段，<br>于是我们就想能不能把颜色像普通的线段树一样存进叶子节点里面，这里有三个点，我们只需要两个，我们可以设计一定的规则 选取当中两个点村颜色 假设 选取1 2<br>于是 0 2 3 的操作我们就转换成了把节点1 2 涂成颜色3 对于 a b c 操作 就是 把 节点 a+1 到 b 全部涂成颜色c；</p>
+<p>之后还是想老问题，父亲节点里面放什么。一般的线段树比如区间找最大值，父亲节点就是放他两个孩子节点的最大值，那么对于这到题的情况，父亲节点放什么？<br>如果放叶子节点的颜色的话，那么他两个叶子节点的颜色不一样，那么这个父亲节点该放什么颜色？那么放叶子节点颜色的种类数，这样对父亲节点可以解决，那么对于爷爷节点种类数该怎么合并（不可能是简单的父亲节点想加）。放什么东西好像都不合适，不然我们就不放东西了，就放初始值-1！（多谢某大佬对渣渣的指点）这样的话，非叶子节点就都是-1。对于区间更新的题目来说，难免避免不了lazy大法（<br>大佬说这道题不会做是因为没有掌握到lazy大法的精髓……<br>）由于其父亲节点存初始值，所以可以利用他的父亲节点存住要改变的颜色，通过延迟操作更新叶子节点，理想状态下，处理到最后情况，所有的非叶子节点全部为-1，<br>叶子节点为该叶子的颜色，统计的时候，只需要对线段树数组中值<br>!=-1的点进行统计就好了。但是样例都过不了……经过debug发现，存在某些父亲节点的值为-1,子节点没有改变的情况……于是乎，我们需要在处理一遍线段树，<br>对起父亲节点为-1的情况，将他的子节点处理为父亲节点的值。</p>
+<p>剩下的从代码里体会：</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+#include &lt;algorithm&gt;
+#include &lt;cstdio&gt;
+using namespace std;
+int segtree[10010*4];
+int a[10010*4];//二次处理线段树
+int num[10010*4];//统计每一种颜色的颜料出现的次数
+//
+void Init () // 初始化
+&#123;
+    for(int i=0; i&lt;10010*4; i++)
+    &#123;
+        segtree[i] = -1;
+        flag[i]=-1;
+        a[i] = -1;
+        num[i] = 0;
+    &#125;
+&#125;
+
+//
+void updata(int root, int l, int r, int x, int y, int z)
+&#123;
+    if(x&lt;=l &amp;&amp; y&gt;=r)
+    &#123;
+        segtree[root]=z;//父节点变为颜色z，为以后进行lazy操作
+        return ;
+    &#125;
+    int mid =(l+r)/2;
+    if(segtree[root] != -1)
+    &#123;
+        segtree[root*2]=segtree[root];
+        segtree[root*2+1]=segtree[root];
+        segtree[root] = -1;
+    &#125;
+    if(x&lt;=mid) updata(root*2, l, mid, x, y, z);
+    if(y&gt;mid)  updata(root*2+1, mid+1, r, x, y, z);
+    return ;
+&#125;
+//
+void query(int root, int l, int r)
+&#123;
+    if(segtree[root]!=-1)// 父节点存在颜色（或者可以理解为这个区间下，颜色唯一）
+    &#123;
+        for(int i=l ; i&lt;=r; i++)
+        &#123;
+            a[i]=segtree[root];
+        &#125;
+    &#125;
+    else
+    &#123;
+        int mid=(l+r)/2;
+        if(l!= r)// l，r相等的话，代表一个点这个操作无意义
+        &#123;
+            query(root*2, l, mid);
+            query(root*2+1, mid+1, r);
+        &#125;
+
+    &#125;
+&#125;
+//
+int main ()
+&#123;
+    int n,x,y,z;
+    while (cin&gt;&gt;n)
+    &#123;
+        Init();
+        for(int i=0; i&lt;n; i++)
+        &#123;
+            scanf(&quot;%d %d %d&quot;,&amp;x,&amp;y, &amp;z);
+            updata(1,1,8010,x+1,y,z);
+        &#125;
+        query(1,1,8010);//对区间1 8000 进行涂色
+        int i=0;
+        while(i&lt;8010)
+        &#123;
+            while(i&lt;8010 &amp;&amp; a[i] == -1)//跳过初始值的点
+                i++;
+            if(i&gt;8010)
+                break;
+            int t=a[i];
+            num[t]++;
+            while(i&lt;8010 &amp;&amp; a[i]==t)//跳过连续的点
+                i++;
+        &#125;
+        for(int i=0; i&lt;8010; i++)
+        &#123;
+            if(num[i] != 0)
+            &#123;
+                cout&lt;&lt;i&lt;&lt;&quot; &quot;&lt;&lt;num[i]&lt;&lt;endl;
+            &#125;
+        &#125;
+        cout&lt;&lt;endl;
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/21/Just%20a%20Hook%20%20---%E7%BA%BF%E6%AE%B5%E6%A0%91%E5%8C%BA%E9%97%B4%E6%9B%B4%E6%96%B0/" rel="next" title="Just a Hook  ---线段树区间更新">
+                <i class="fa fa-chevron-left"></i> Just a Hook  ---线段树区间更新
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/08/24/Hanol%20towers%20%5BGym-101243B%5D%E2%80%94%E2%80%94%E2%80%94Python%E8%AF%AD%E8%A8%80%E5%9C%A8%E7%BC%96%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%96%87%E4%BB%B6%E8%AF%BB%E5%85%A5%E4%B8%8E%E8%BE%93%E5%87%BA%EF%BC%8C%E4%BE%8B%E9%A2%98%E8%A7%A3%E9%87%8A/" rel="prev" title="Hanol towers [Gym-101243B]———Python语言在编程中的文件读入与输出，例题解释">
+                Hanol towers [Gym-101243B]———Python语言在编程中的文件读入与输出，例题解释 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">138</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yxiaobin" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="yxiaobin2016@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨小宾</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

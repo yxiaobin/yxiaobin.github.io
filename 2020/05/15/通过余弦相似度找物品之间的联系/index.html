@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="由于毕设用到了推荐算法，这几天在搜索资料，对基于项目的协同过滤算法有了一定的理解，我的理解就是“物以类聚”。通过所有用户对某一商品的评分，来寻找商品之间的相似度。在这里我用的是利用求余弦的方式来判别。   程序主要解决了2个问题   1、评分中心化:不同的用户打分喜好不同，有的人喜欢打高分，例如喜欢打5分不喜欢打3分，有的人喜欢打低分，例如喜欢打4分不喜欢打1分，这样对数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="通过余弦相似度找物品之间的联系">
+<meta property="og:url" content="https://yxiaobin.github.io/2020/05/15/%E9%80%9A%E8%BF%87%E4%BD%99%E5%BC%A6%E7%9B%B8%E4%BC%BC%E5%BA%A6%E6%89%BE%E7%89%A9%E5%93%81%E4%B9%8B%E9%97%B4%E7%9A%84%E8%81%94%E7%B3%BB/index.html">
+<meta property="og:site_name" content="杨小宾的个人博客">
+<meta property="og:description" content="由于毕设用到了推荐算法，这几天在搜索资料，对基于项目的协同过滤算法有了一定的理解，我的理解就是“物以类聚”。通过所有用户对某一商品的评分，来寻找商品之间的相似度。在这里我用的是利用求余弦的方式来判别。   程序主要解决了2个问题   1、评分中心化:不同的用户打分喜好不同，有的人喜欢打高分，例如喜欢打5分不喜欢打3分，有的人喜欢打低分，例如喜欢打4分不喜欢打1分，这样对数据">
+<meta property="og:locale">
+<meta property="article:published_time" content="2020-05-15T03:04:37.000Z">
+<meta property="article:modified_time" content="2022-07-10T09:41:12.197Z">
+<meta property="article:author" content="杨小宾">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yxiaobin.github.io/2020/05/15/通过余弦相似度找物品之间的联系/"/>
+
+
+
+
+
+  <title>通过余弦相似度找物品之间的联系 | 杨小宾的个人博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨小宾的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2020/05/15/%E9%80%9A%E8%BF%87%E4%BD%99%E5%BC%A6%E7%9B%B8%E4%BC%BC%E5%BA%A6%E6%89%BE%E7%89%A9%E5%93%81%E4%B9%8B%E9%97%B4%E7%9A%84%E8%81%94%E7%B3%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨小宾的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">通过余弦相似度找物品之间的联系</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-15T11:04:37+08:00">
+                2020-05-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%96%87%E7%AB%A0%E6%A0%87%E7%AD%BE/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构文章标签</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><p>由于毕设用到了推荐算法，这几天在搜索资料，对基于项目的协同过滤算法有了一定的理解，我的理解就是“物以类聚”。通过所有用户对某一商品的评分，来寻找商品之间的相似度。在这里我用的是利用求余弦的方式来判别。 </p>
+</li>
+<li><p>程序主要解决了2个问题 </p>
+<ul>
+<li>1、评分中心化:不同的用户打分喜好不同，有的人喜欢打高分，例如喜欢打5分不喜欢打3分，有的人喜欢打低分，例如喜欢打4分不喜欢打1分，这样对数据<span id="more"></span>是有影响的，因此需要平分中心化。除此之外对于一个用户他没有评价的商品，默认为0，这个0有着极大的不喜欢的意义，这对于数据的分析也有影响，我们要想办法，把这个默认0设定为一个中性的，既不影响喜欢的程度，也不影响不喜欢的程度。 </li>
+<li>2、实现余弦求相似度的计算：简单的一个向量点乘坐标计算实现的公式，不难。 </li>
+</ul>
+<pre><code>    #include &lt;iostream&gt;
+    #include &lt;math.h&gt;
+    using namespace std;
+    
+    double item[100][100];
+    double value[100][100];
+    double consin[100][100];
+    
+    void get_cos(int x,int y)
+    &#123;
+        //计算a点乘b
+        double a=0;
+        for(int i=1; i&lt;6; i++)
+            a += value[i][x]*value[i][y];
+        //计算 a，b 的模长
+        double b=0, c=0  ;
+        for(int i=1; i&lt;6; i++)
+        &#123;
+            b += pow(value[i][x],2);
+            c += pow(value[i][y],2);
+        &#125;
+    
+        //开根号
+        b = sqrt(b);
+        c = sqrt(c);
+        consin[x][y] = a/(b*c);
+    &#125;
+    
+    int main()
+    &#123;
+        cout&lt;&lt;&quot;现假设有用户5人，商品五个，请随机输入部分用户对部分物品的评分&quot;&lt;&lt;endl;
+        for(int i=1; i&lt;6; i++)
+            for(int j=1; j&lt;6; j++)
+                cin&gt;&gt;item[i][j];
+        cout&lt;&lt;&quot;用户的评分表如下&quot;&lt;&lt;endl;
+        cout&lt;&lt;&quot;用户\t物品1\t物品2\t物品3\t物品4\t物品5&quot;&lt;&lt;endl;
+        for(int i=1; i&lt;6; i++)
+        &#123;
+            cout&lt;&lt;&quot;用户&quot;&lt;&lt;i&lt;&lt;&quot;\t&quot;;
+            for(int j=1; j&lt;6; j++)
+            &#123;
+                cout&lt;&lt;item[i][j]&lt;&lt;&quot;\t&quot;;
+            &#125;
+            cout&lt;&lt;endl;
+        &#125;
+        cout&lt;&lt;&quot;用户商品评分中心化&quot;&lt;&lt;endl;
+        for(int i=1; i&lt;6; i++)
+        &#123;
+            double sum = 0;
+            int n = 0;
+            for(int j=1; j&lt;6; j++)
+            &#123;
+                sum +=item[i][j];
+                if(item[i][j] &gt;0)
+                    n++;
+            &#125;
+    
+            if(sum==0) sum = 0;
+            else
+            &#123;
+                sum = sum/(n*1.0);
+            &#125;
+            for(int j=1; j&lt;6; j++)
+                if(item[i][j] &gt; 0)
+                    value[i][j] =item[i][j] - sum;
+        &#125;
+        cout&lt;&lt;&quot;用户的评分表如下&quot;&lt;&lt;endl;
+        cout&lt;&lt;&quot;用户\t物品1\t物品2\t物品3\t物品4\t物品5&quot;&lt;&lt;endl;
+        for(int i=1; i&lt;6; i++)
+        &#123;
+            cout&lt;&lt;&quot;用户&quot;&lt;&lt;i&lt;&lt;&quot;\t&quot;;
+            for(int j=1; j&lt;6; j++)
+            &#123;
+                cout&lt;&lt;value[i][j]&lt;&lt;&quot;\t&quot;;
+            &#125;
+            cout&lt;&lt;endl;
+        &#125;
+        cout&lt;&lt;&quot;正在进行物品相似度计算。。。。。。。&quot;&lt;&lt;endl;
+        for(int i=1; i&lt;=5; i++)
+        &#123;
+            for(int j=1; j&lt;=5; j++)
+                get_cos(i,j);
+        &#125;
+    
+        cout&lt;&lt;&quot;物品的相似度表如下&quot;&lt;&lt;endl;
+        cout&lt;&lt;&quot;物品\t物品1\t物品2\t物品3\t物品4\t物品5&quot;&lt;&lt;endl;
+        for(int i=1; i&lt;6; i++)
+        &#123;
+            cout&lt;&lt;&quot;物品&quot;&lt;&lt;i&lt;&lt;&quot;\t&quot;;
+            for(int j=1; j&lt;6; j++)
+            &#123;
+                cout&lt;&lt;consin[i][j]&lt;&lt;&quot;\t&quot;;
+            &#125;
+            cout&lt;&lt;endl;
+        &#125;
+    &#125;
+</code></pre>
+</li>
+</ul>
+<p>![程序的运行结果](<a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20200515105949567.png?x-oss-">https://img-blog.csdnimg.cn/20200515105949567.png?x-oss-</a><br>process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl8zODA2NDgxMA==,size_16,color_FFFFFF,t_70)</p>
+<ul>
+<li>已知对于两个向量a,b，当向量相等时，其夹角为0，余弦值为1，向量相反时，夹角为π，余弦值为-1，故当两个物品相似度越高的时候，他们的余弦值越大，如图所示，物品1和物品2有着极大的相似度，物品4和物品5有着极大的相似，因此对于购买物品1没有购买物品2的用户就可以将物品2推荐给他。 </li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/05/08/python%E6%89%B9%E9%87%8F%E4%B8%8B%E8%BD%BDCSDN%E5%8D%9A%E5%AE%A2%E5%B9%B6%E5%AD%98%E5%82%A8%E4%B8%BA.md%E6%A0%BC%E5%BC%8F%E7%9A%84%E6%96%87%E4%BB%B6/" rel="next" title="python批量下载CSDN博客并存储为.md格式的文件">
+                <i class="fa fa-chevron-left"></i> python批量下载CSDN博客并存储为.md格式的文件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/11/19/GANet%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E9%81%87%E5%88%B0%E7%9A%84%E8%8B%A5%E5%B9%B2%E9%97%AE%E9%A2%98/" rel="prev" title="GANet代码实现遇到的若干问题">
+                GANet代码实现遇到的若干问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">138</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yxiaobin" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="yxiaobin2016@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨小宾</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

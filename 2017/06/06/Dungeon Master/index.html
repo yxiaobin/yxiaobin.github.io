@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="You are trapped in a 3D dungeon and need to find the quickest way out! Thedungeon is composed of unit cubes which may or may not be filled with rock. Ittakes one minute to move one unit north, south">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dungeon Master">
+<meta property="og:url" content="https://yxiaobin.github.io/2017/06/06/Dungeon%20Master/index.html">
+<meta property="og:site_name" content="杨小宾的个人博客">
+<meta property="og:description" content="You are trapped in a 3D dungeon and need to find the quickest way out! Thedungeon is composed of unit cubes which may or may not be filled with rock. Ittakes one minute to move one unit north, south">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-06-06T14:59:36.000Z">
+<meta property="article:modified_time" content="2022-07-10T09:42:01.476Z">
+<meta property="article:author" content="杨小宾">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yxiaobin.github.io/2017/06/06/Dungeon Master/"/>
+
+
+
+
+
+  <title>Dungeon Master | 杨小宾的个人博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨小宾的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2017/06/06/Dungeon%20Master/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨小宾的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Dungeon Master</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-06T22:59:36+08:00">
+                2017-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E6%96%87%E7%AB%A0%E6%A0%87%E7%AD%BE/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构文章标签</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>You are trapped in a 3D dungeon and need to find the quickest way out! The<br>dungeon is composed of unit cubes which may or may not be filled with rock. It<br>takes one minute to move one unit north, south<span id="more"></span>, east, west, up or down. You<br>cannot move diagonally and the maze is surrounded by solid rock on all sides.  </p>
+<p>Is an escape possible? If yes, how long will it take?<br>Input<br>The input consists of a number of dungeons. Each dungeon description starts<br>with a line containing three integers L, R and C (all limited to 30 in size).<br>L is the number of levels making up the dungeon.<br>R and C are the number of rows and columns making up the plan of each level.<br>Then there will follow L blocks of R lines each containing C characters. Each<br>character describes one cell of the dungeon. A cell full of rock is indicated<br>by a ‘#’ and empty cells are represented by a ‘.’. Your starting position is<br>indicated by ‘S’ and the exit by the letter ‘E’. There’s a single blank line<br>after each level. Input is terminated by three zeroes for L, R and C.<br>Output<br>Each maze generates one line of output. If it is possible to reach the exit,<br>print a line of the form<br>Escaped in x minute(s).  </p>
+<p>where x is replaced by the shortest time it takes to escape.<br>If it is not possible to escape, print the line<br>Trapped!<br>Sample Input<br>3 4 5<br>S….<br>.###.<br>.##..<br>###.#  </p>
+<h5 id=""><a href="#" class="headerlink" title=""></a></h5><h5 id="-1"><a href="#-1" class="headerlink" title=""></a></h5><p>##.##<br>##…  </p>
+<h5 id="-2"><a href="#-2" class="headerlink" title=""></a></h5><h5 id="-3"><a href="#-3" class="headerlink" title=""></a></h5><p>#.###<br>####E  </p>
+<p>1 3 3<br>S##<br>#E#  </p>
+<h3 id="-4"><a href="#-4" class="headerlink" title=""></a></h3><p>0 0 0<br>Sample Output<br>Escaped in 11 minute(s).  </p>
+<p>Trapped!</p>
+<p>思路 ：校赛的时候 做的 魔戒那道题是一个4维空间可以向8个方向移动</p>
+<p>这道题是一个三维空间，向6个方向移动，所以这道题由于做了魔戒，就是一模一样的套路了……</p>
+<p>唯一不同的是 每一维空间都需要吃一个回车</p>
+<p>另外 cin 的话 ，读字符，就不需要吃空格了，用scanf 的话 就需要吃空格，三维，四维吃空格很麻烦，最好还是用 cin</p>
+<pre><code>    #include &lt;iostream&gt;
+    #include &lt;cstdio&gt;
+    #include &lt;cstring&gt;
+    #include &lt;queue&gt;
+    using namespace std;
+    char map[40][40][40];
+    int vis[40][40][40];
+    int x,y,z,w;
+    int flag;
+    struct node
+    &#123;
+        int a;
+        int b;
+        int c;
+
+        int ans;
+    &#125;m,n;
+    void bfs(int a, int b, int c)
+    &#123;
+        queue&lt;struct node &gt;q;
+        vis[a][b][c]=1;
+        m.a=a;
+        m.b=b;
+        m.c=c;
+
+        m.ans=0;
+        q.push(m);
+        while(!q.empty())
+        &#123;
+            n=q.front();
+            a=n.a;
+            b=n.b;
+            c=n.c;
+
+            q.pop();
+            if(a-1&gt;=0 &amp;&amp;map[a-1][b][c]!=&#39;#&#39; &amp;&amp; vis[a-1][b][c]==0)
+            &#123;
+                m.a=a-1;
+                m.b=b;
+                m.c=c;
+
+                m.ans=n.ans+1;
+                vis[a-1][b][c]=1;
+                q.push(m);
+                if(map[a-1][b][c]==&#39;E&#39;)
+                &#123;
+                         printf(&quot;Escaped in %d minute(s).&quot;,m.ans);
+                        flag=1;
+                        return ;
+                &#125;
+            &#125;
+            if(a+1&lt;x &amp;&amp;map[a+1][b][c]!=&#39;#&#39; &amp;&amp; vis[a+1][b][c]==0)
+            &#123;
+                m.a=a+1;
+                m.b=b;
+                m.c=c;
+
+                m.ans=n.ans+1;
+                vis[a+1][b][c]=1;
+                q.push(m);
+                if(map[a+1][b][c]==&#39;E&#39;)
+                &#123;
+                         printf(&quot;Escaped in %d minute(s).&quot;,m.ans);
+                        flag=1;
+                        return ;
+                &#125;
+            &#125;
+            if(b-1&gt;=0 &amp;&amp;map[a][b-1][c]!=&#39;#&#39; &amp;&amp; vis[a][b-1][c]==0)
+            &#123;
+                m.a=a;
+                m.b=b-1;
+                m.c=c;
+
+                m.ans=n.ans+1;
+                vis[a][b-1][c]=1;
+                q.push(m);
+                if(map[a][b-1][c]==&#39;E&#39;)
+                &#123;
+                         printf(&quot;Escaped in %d minute(s).&quot;,m.ans);
+                        flag=1;
+                        return ;
+                &#125;
+            &#125;
+            if(b+1&lt;y &amp;&amp;map[a][b+1][c]!=&#39;#&#39; &amp;&amp; vis[a][b+1][c]==0)
+            &#123;
+                m.a=a;
+                m.b=b+1;
+                m.c=c;
+
+                m.ans=n.ans+1;
+                vis[a][b+1][c]=1;
+                q.push(m);
+                if(map[a][b+1][c]==&#39;E&#39;)
+                &#123;
+                         printf(&quot;Escaped in %d minute(s).&quot;,m.ans);
+                        flag=1;
+                        return ;
+                &#125;
+            &#125;
+            if(c-1&gt;=0 &amp;&amp;map[a][b][c-1]!=&#39;#&#39; &amp;&amp; vis[a][b][c-1]==0)
+            &#123;
+                m.a=a;
+                m.b=b;
+                m.c=c-1;
+                m.ans=n.ans+1;
+                vis[a][b][c-1]=1;
+                q.push(m);
+                if(map[a][b][c-1]==&#39;E&#39;)
+                &#123;
+                          printf(&quot;Escaped in %d minute(s).&quot;,m.ans);
+                        flag=1;
+                        return ;
+                &#125;
+            &#125;
+            if(c+1&lt;z &amp;&amp;map[a][b][c+1]!=&#39;#&#39; &amp;&amp; vis[a][b][c+1]==0)
+            &#123;
+                m.a=a;
+                m.b=b;
+                m.c=c+1;
+                m.ans=n.ans+1;
+                vis[a][b][c+1]=1;
+                q.push(m);
+                if(map[a][b][c+1]==&#39;E&#39;)
+                &#123;
+                        printf(&quot;Escaped in %d minute(s).&quot;,m.ans);
+                        flag=1;
+                        return ;
+                &#125;
+            &#125;
+
+
+        &#125;
+    &#125;
+    int main ()
+    &#123;
+        int i,j,k;
+        int a,b,c;
+        while(cin &gt;&gt; x&gt;&gt;y&gt;&gt;z)
+        &#123;
+            if(x==0 &amp;&amp;y==0 &amp;&amp;z==0) break;
+            memset(vis,0,sizeof(vis));
+            for(i=0; i&lt;x; i++)
+                for(j=0; j&lt;y; j++)
+                    for(k=0; k&lt;z; k++)
+                        &#123;
+                            cin&gt;&gt;map[i][j][k];
+                            if(map[i][j][k]==&#39;S&#39;)
+                            &#123;
+                                a=i;
+                                b=j;
+                                c=k;
+
+                            &#125;
+                        &#125;
+              flag=0;
+              bfs(a,b,c);
+              if(flag==0) printf(&quot;Trapped!&quot;);
+              printf(&quot;\n&quot;);
+        &#125;
+        return 0;
+
+    &#125;
+</code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/06/New%20Year%20Table/" rel="next" title="New Year Table">
+                <i class="fa fa-chevron-left"></i> New Year Table
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/07/CF%E2%80%94Hot%20Bath/" rel="prev" title="CF—Hot Bath">
+                CF—Hot Bath <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">138</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yxiaobin" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="yxiaobin2016@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#-1"><span class="nav-number">2.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#-2"><span class="nav-number">3.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#-3"><span class="nav-number">4.</span> <span class="nav-text"></span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#-4"><span class="nav-number"></span> <span class="nav-text"></span></a></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨小宾</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

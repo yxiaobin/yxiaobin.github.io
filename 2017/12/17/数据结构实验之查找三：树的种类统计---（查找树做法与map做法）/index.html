@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="随着卫星成像技术的应用，自然资源研究机构可以识别每一个棵树的种类。请编写程序帮助研究人员统计每种树的数量，计算每种树占总数的百分比。Input   输入一组测试数据。数据的第1行给出一个正整数N (n &lt;&#x3D;100000)，N表示树的数量；随后N行，每行给出卫星观测到的一棵树的种类名称，树的名称是一个不超过20个字符的字符串，字符串由英文字母和空格组成，不区分大小写。Output">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构实验之查找三：树的种类统计---（查找树做法与map做法）">
+<meta property="og:url" content="https://yxiaobin.github.io/2017/12/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C%E4%B9%8B%E6%9F%A5%E6%89%BE%E4%B8%89%EF%BC%9A%E6%A0%91%E7%9A%84%E7%A7%8D%E7%B1%BB%E7%BB%9F%E8%AE%A1---%EF%BC%88%E6%9F%A5%E6%89%BE%E6%A0%91%E5%81%9A%E6%B3%95%E4%B8%8Emap%E5%81%9A%E6%B3%95%EF%BC%89/index.html">
+<meta property="og:site_name" content="杨小宾的个人博客">
+<meta property="og:description" content="随着卫星成像技术的应用，自然资源研究机构可以识别每一个棵树的种类。请编写程序帮助研究人员统计每种树的数量，计算每种树占总数的百分比。Input   输入一组测试数据。数据的第1行给出一个正整数N (n &lt;&#x3D;100000)，N表示树的数量；随后N行，每行给出卫星观测到的一棵树的种类名称，树的名称是一个不超过20个字符的字符串，字符串由英文字母和空格组成，不区分大小写。Output">
+<meta property="og:locale">
+<meta property="article:published_time" content="2017-12-17T07:40:49.000Z">
+<meta property="article:modified_time" content="2022-07-10T09:41:21.007Z">
+<meta property="article:author" content="杨小宾">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yxiaobin.github.io/2017/12/17/数据结构实验之查找三：树的种类统计---（查找树做法与map做法）/"/>
+
+
+
+
+
+  <title>数据结构实验之查找三：树的种类统计---（查找树做法与map做法） | 杨小宾的个人博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨小宾的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2017/12/17/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AE%9E%E9%AA%8C%E4%B9%8B%E6%9F%A5%E6%89%BE%E4%B8%89%EF%BC%9A%E6%A0%91%E7%9A%84%E7%A7%8D%E7%B1%BB%E7%BB%9F%E8%AE%A1---%EF%BC%88%E6%9F%A5%E6%89%BE%E6%A0%91%E5%81%9A%E6%B3%95%E4%B8%8Emap%E5%81%9A%E6%B3%95%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨小宾的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据结构实验之查找三：树的种类统计---（查找树做法与map做法）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-17T15:40:49+08:00">
+                2017-12-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i>
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>随着卫星成像技术的应用，自然资源研究机构可以识别每一个棵树的种类。请编写程序帮助研究人员统计每种树的数量，计算每种树占总数的百分比。<br>Input  </p>
+<p>输入一组测试数据。数据的第1行给出一个正整数N (n &lt;=<br>100000)，N表示树的数量；随后N行，每行给出卫星观测到的一棵树的种类名称，树的名称是一个不超过20个字符的字符串，字符串由英文字母和空格组成，不区分大小写。<br>Output<span id="more"></span>  </p>
+<p>按字典序输出各种树的种类名称和它占的百分比，中间以空格间隔，小数点后保留两位小数。<br>Example Input  </p>
+<p>2<br>This is an Appletree<br>this is an appletree<br>Example Output  </p>
+<p>this is an appletree 100.00%</p>
+<p>看到这个题目的第一个想法就是利用map数组一一映射，由于测试不准谁用stl函数，先采用正常做法—加权二叉查找树的做法：</p>
+<p>原理：由于按照字典序输出二叉树，因此这是一个基于字符串建立的树。</p>
+<p>插入规则为，如果所插入的节点的字符串，在字符串比较函数strcmp（）中与根值root-&gt;name比较，较小的放到根的左孩子上，较大的放在右孩子上，，如果与根值相同，则根值的权值++；</p>
+<p>代码如下：</p>
+<pre><code>#include&lt;algorithm&gt;
+#include&lt;iostream&gt;
+#include&lt;map&gt;
+#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+using namespace std;
+struct node
+&#123;
+    char name[25]; //mingzi
+    int num;//quanzhi
+    struct node *lchild, *rchild;
+&#125;;
+struct node *creat(struct node *root,char s[])
+&#123;
+    if(!root)
+    &#123;
+        root = new node;//不存在根节点，注意需要申请根节点，否则会CE
+        strcpy(root-&gt;name,s);
+        root-&gt;num=1;
+        root-&gt;lchild =root-&gt;rchild =NULL;
+    &#125;
+    else
+    &#123;
+        if(strcmp(root-&gt;name,s)==0)
+        &#123;
+            root-&gt;num++;
+        &#125;
+        else  if(strcmp(root-&gt;name,s)&gt;0)
+        &#123;
+            root-&gt;lchild = creat(root-&gt;lchild, s);
+        &#125;
+        else if(strcmp(root-&gt;name,s)&lt;0)
+        &#123;
+            root-&gt;rchild = creat(root-&gt;rchild, s);
+        &#125;
+    &#125;
+    return root;
+&#125;;
+void  midprint(struct node *root, int n) //输出方式会 左孩子-根-右孩子 即中序遍历
+&#123;
+    if(root)&#123;
+    midprint(root-&gt;lchild, n);
+    printf(&quot;%s %.2lf%%\n&quot;,root-&gt;name, 100*(double)root-&gt;num/n);
+    midprint(root-&gt;rchild, n);
+    &#125;
+&#125;
+int main()
+&#123;
+    char s[25];
+    int n;
+   cin&gt;&gt;n;
+
+        getchar();
+        struct node *root;
+        root = NULL;
+        for(int j=0; j&lt;n; j++)
+        &#123;
+            gets(s);
+            int m=strlen(s);
+            //getsmall(s);
+            for(int i=0; i&lt;m; i++)
+            &#123;
+                if(s[i]&gt;=&#39;A&#39; &amp;&amp; s[i]&lt;=&#39;Z&#39;)
+                    s[i]=s[i]-&#39;A&#39;+&#39;a&#39;;
+            &#125;
+           root = creat(root,s);
+        &#125;
+        //lchild-root---rchild
+        midprint(root, n);
+
+&#125;
+</code></pre>
+<p>二：</p>
+<p>利用 map函数映射 map<int string>mp 实现 字符串与数字的一一对应，实现 mp[1] = str1 mp[2] =str2……<br>如果来一个新的串strn 则将 mp[1]-mp[k]（一共k个）与之一一匹配，如果已包含这个串，则桶排计数函数num[x]++(when -&gt;<br>map[x]==strn), 否则使得mp[k+1] =strn</p>
+<p>这样完成后，利用冒泡排序对mp[i]数组进行一次从小到大的排序（注意num数组也要跟着变化）</p>
+<p>然后输出即可，代码如下</p>
+<pre><code>#include&lt;iostream&gt;
+#include&lt;cstring&gt;
+#include&lt;cstdio&gt;
+#include &lt;map&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+map&lt;int,string&gt;mp;
+int a[100100];
+char s[100];
+void become(int n)
+&#123;
+    for(int i=0;i&lt;n;i++)
+    &#123;
+        if(s[i]&gt;=&#39;A&#39; &amp;&amp; s[i]&lt;=&#39;Z&#39;)
+        &#123;
+            s[i]=s[i]-&#39;A&#39;+&#39;a&#39;;
+        &#125;
+    &#125;
+&#125;
+int main ()
+&#123;
+    int n;
+    scanf(&quot;%d&quot;,&amp;n);
+    getchar();
+    memset(a,0,sizeof(a));
+    int px=0;
+    for(int i=0;i&lt;n;i++)
+    &#123;
+        gets(s);
+        int m=strlen((s));
+        become(m);
+        int flag=0;
+        for(int i=0;i&lt;px;i++)
+        &#123;
+            if(mp[i]==s)
+            &#123;
+                flag=1;
+                a[i]++;
+                break;
+            &#125;
+        &#125;
+        if(!flag)
+        &#123;
+            mp[px]=s;
+            a[px]++;
+            px++;
+        &#125;
+    &#125;
+    string t;
+    int k;
+    for(int i=0; i&lt;px-1;i++)
+    &#123;
+        for(int j=i+1;j&lt;px;j++)
+        &#123;
+            if(mp[j]&lt;mp[i])
+            &#123;
+                t=mp[i];
+                mp[i]=mp[j];
+                mp[j]=t;
+                k=a[i];
+                a[i]=a[j];
+                a[j]=k;
+            &#125;
+        &#125;
+    &#125;
+    for(int i=0;i&lt;px;i++)
+    &#123;
+    cout&lt;&lt;mp[i]&lt;&lt;&quot; &quot;;
+    a[i]*=100;
+    printf(&quot;%.2lf%%\n&quot;,(double)a[i]/n);
+    &#125;
+&#125;
+</code></pre>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/14/5-1%20%E7%BB%A7%E6%89%BF%E4%B8%8E%E6%B4%BE%E7%94%9F/" rel="next" title="5-1 继承与派生">
+                <i class="fa fa-chevron-left"></i> 5-1 继承与派生
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/17/3-6%20%E9%9D%99%E6%80%81%E6%95%B0%E6%8D%AE%E6%88%90%E5%91%98%E4%B8%8E%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0/" rel="prev" title="3-6 静态数据成员与静态成员函数">
+                3-6 静态数据成员与静态成员函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">138</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yxiaobin" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="yxiaobin2016@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨小宾</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
