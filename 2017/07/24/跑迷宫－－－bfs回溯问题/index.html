@@ -87,7 +87,7 @@
 <meta property="og:description" content="定义一个二维数组：   int maze[5][5] &#x3D; {   0, 1, 0, 0, 0,   0, 1, 0, 1, 0,   0, 0, 0, 0, 0,   0, 1, 1, 1, 0,   0, 0, 0, 1, 0,   };   它表示一个迷宫，其中的1表示墙壁，0表示可以走的路，只能横着走或竖着走，不能斜着走，要求编程序">
 <meta property="og:locale">
 <meta property="article:published_time" content="2017-07-24T12:24:21.000Z">
-<meta property="article:modified_time" content="2022-07-10T09:41:52.874Z">
+<meta property="article:modified_time" content="2022-07-11T03:16:27.787Z">
 <meta property="article:author" content="杨小宾">
 <meta name="twitter:card" content="summary">
 
@@ -304,8 +304,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%90%9C%E7%B4%A2%E9%81%8D%E5%8E%86bfs/" itemprop="url" rel="index">
-                    <span itemprop="name">搜索遍历bfs</span>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
                   </a>
                 </span>
 
@@ -360,56 +360,8 @@
 <p>(0, 0)<br>(1, 0)<br>(2, 0)<br>(2, 1)<br>(2, 2)<br>(2, 3)<br>(2, 4)<br>(3, 4)  </p>
 <p>(4, 4)</p>
 <p>BFS+路径回溯的问题，路径回溯，具体看POJ —-Ｐots 那一篇，搞懂那个之后，这个不是事（逃  </p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;cstring&gt;
-#include &lt;cstdio&gt;
-#include &lt;algorithm&gt;
-#include &lt;queue&gt;
-using namespace std;
-int map[10][10];
-int vis[10][10];
-struct node
-&#123;
-    int x;
-    int y;
-    int pos;
-    int pre;
-    int step;
-&#125;p[1000],a,b,op[1000];
-int dx[4]=&#123;1,-1,0,0&#125;;
-int dy[4]=&#123;0,0,1,-1&#125;;
-int px;
-void bfs()
-&#123;
-    queue&lt;struct node&gt;q;
-    a.x=0;
-    a.y=0;
-    a.pos=0;
-    a.pre=0;
-    a.step=0;
-    vis[a.x][a.y]=1;
-    q.push(a);
-    p[px++]=a;
-    while(!q.empty())
-    &#123;
-        b=q.front();
-        q.pop();
-        int nx=b.x;
-        int ny=b.y;
-        if(nx==4 &amp;&amp; ny==4)
-        &#123;
-           int n=b.step;
-            for(int i=b.step; i&gt;=0; i--)
-            &#123;
-                op[i]=b;
-                b=p[b.pre];
-            &#125;
-            for(int i=0;i&lt;=n;i++)
-            &#123;
-                printf(&quot;(%d, %d)\n&quot;,op[i].x, op[i].y);
-            &#125;
-
-        &#125;
+<p>​<br>    #include <iostream><br>    #include <cstring><br>    #include <cstdio><br>    #include <algorithm><br>    #include <queue><br>    using namespace std;<br>    int map[10][10];<br>    int vis[10][10];<br>    struct node<br>    {<br>        int x;<br>        int y;<br>        int pos;<br>        int pre;<br>        int step;<br>    }p[1000],a,b,op[1000];<br>    int dx[4]={1,-1,0,0};<br>    int dy[4]={0,0,1,-1};<br>    int px;<br>    void bfs()<br>    {<br>        queue<struct node>q;<br>        a.x=0;<br>        a.y=0;<br>        a.pos=0;<br>        a.pre=0;<br>        a.step=0;<br>        vis[a.x][a.y]=1;<br>        q.push(a);<br>        p[px++]=a;<br>        while(!q.empty())<br>        {<br>            b=q.front();<br>            q.pop();<br>            int nx=b.x;<br>            int ny=b.y;<br>            if(nx==4 &amp;&amp; ny==4)<br>            {<br>               int n=b.step;<br>                for(int i=b.step; i&gt;=0; i–)<br>                {<br>                    op[i]=b;<br>                    b=p[b.pre];<br>                }<br>                for(int i=0;i&lt;=n;i++)<br>                {<br>                    printf(“(%d, %d)\n”,op[i].x, op[i].y);<br>                }</p>
+<pre><code>        &#125;
         for(int i=0;i&lt;4;i++)
         &#123;
             if(nx+dx[i]&gt;=0 &amp;&amp; nx+dx[i]&lt;5 &amp;&amp;ny+dy[i]&gt;=0 &amp;&amp; ny+dy[i]&lt;5 &amp;&amp; map[nx+dx[i]][ny+dy[i]]==0 &amp;&amp; vis[nx+dx[i]][ny+dy[i]]==0)
@@ -548,7 +500,7 @@ int main ()
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">139</span>
+                  <span class="site-state-item-count">137</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -559,7 +511,7 @@ int main ()
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -570,7 +522,7 @@ int main ()
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

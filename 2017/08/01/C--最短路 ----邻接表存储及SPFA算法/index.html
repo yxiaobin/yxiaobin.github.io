@@ -87,7 +87,7 @@
 <meta property="og:description" content="C–最短路Time Limit: 7000MS Memory Limit: 65536KBProblem Description给出一个带权无向图，包含n个点，m条边。求出s，e的最短路。保证最短路存在。Input多组输入。对于每组数据。第一行输入n，m(1&lt;&#x3D; n &amp;&amp; n&lt;&#x3D;5*10^5,1 &lt;&#x3D; m &amp;&amp; m &lt;&#x3D; 2*10^6)。接下">
 <meta property="og:locale">
 <meta property="article:published_time" content="2017-08-01T02:23:57.000Z">
-<meta property="article:modified_time" content="2022-07-10T09:41:45.510Z">
+<meta property="article:modified_time" content="2022-07-11T03:16:00.145Z">
 <meta property="article:author" content="杨小宾">
 <meta name="twitter:card" content="summary">
 
@@ -304,8 +304,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E6%9C%80%E7%9F%AD%E8%B7%AF/" itemprop="url" rel="index">
-                    <span itemprop="name">数据最短路</span>
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
                   </a>
                 </span>
 
@@ -355,73 +355,7 @@
 <p>SPFA算法：  </p>
 <p>1.可以解决有负权值的情况。</p>
 <p>2.利用队列进行松弛操作。  </p>
-<pre><code>#include &lt;iostream&gt;
-#include &lt;cstdio&gt;
-#include &lt;cstring&gt;
-#include &lt;algorithm&gt;
-#include &lt;cmath&gt;
-#include &lt;queue&gt;
-#include &lt;vector&gt;
-#define inf 0x3f3f3f3f
-using namespace std;
-struct node
-&#123;
-    int id;
-    int wi;
-&#125; a,b;
-vector&lt;node&gt;v[500100];
-int vis[500100],dist[500100], n, m;
-void SPFA(int s, int e)
-&#123;
-    memset(dist,inf,sizeof(dist));
-    memset(vis,0,sizeof(vis));
-    dist[s]=0;
-    vis[s]=1;
-    queue&lt;int&gt;q;
-    q.push(s);
-    while(!q.empty())
-    &#123;
-        int x=q.front();
-        q.pop();
-        vis[x]=0; //大坑点，因为这一句，卡一道题卡了好久好久！！！！
-        for(int i=0; i&lt;v[x].size(); i++)
-        &#123;
-            int id=v[x][i].id;
-            int wi=v[x][i].wi;
-            if(dist[id] &gt;dist[x]+wi) // 不断进行实时更新保证每一步的 dist 都是最短情况
-            &#123;
-                dist[id]=dist[x]+wi;
-                if(!vis[id])
-                &#123;
-                    q.push(id);
-                    vis[id]=1;
-                &#125;
-            &#125;
-        &#125;
-    &#125;
-    cout&lt;&lt;dist[e]&lt;&lt;endl;
-&#125;
-int main ()
-&#123;
-    int u,V,w;
-    while(~scanf(&quot;%d %d&quot;,&amp;n,&amp;m))
-    &#123;
-        for(int i=0; i&lt;m; i++)
-        &#123;
-            scanf(&quot;%d %d %d&quot;,&amp;u,&amp;V,&amp;w);
-            a.id=V;
-            a.wi=w;
-            v[u].push_back(a);
-            b.id=u;
-            b.wi=w;
-            v[V].push_back(b);
-        &#125;
-        int s,e;
-        cin &gt;&gt;s&gt;&gt;e;
-        SPFA(s,e);
-    &#125;
-&#125;
-</code></pre>
+<p>​<br>    #include <iostream><br>    #include <cstdio><br>    #include <cstring><br>    #include <algorithm><br>    #include <cmath><br>    #include <queue><br>    #include <vector><br>    #define inf 0x3f3f3f3f<br>    using namespace std;<br>    struct node<br>    {<br>        int id;<br>        int wi;<br>    } a,b;<br>    vector<node>v[500100];<br>    int vis[500100],dist[500100], n, m;<br>    void SPFA(int s, int e)<br>    {<br>        memset(dist,inf,sizeof(dist));<br>        memset(vis,0,sizeof(vis));<br>        dist[s]=0;<br>        vis[s]=1;<br>        queue<int>q;<br>        q.push(s);<br>        while(!q.empty())<br>        {<br>            int x=q.front();<br>            q.pop();<br>            vis[x]=0; //大坑点，因为这一句，卡一道题卡了好久好久！！！！<br>            for(int i=0; i&lt;v[x].size(); i++)<br>            {<br>                int id=v[x][i].id;<br>                int wi=v[x][i].wi;<br>                if(dist[id] &gt;dist[x]+wi) // 不断进行实时更新保证每一步的 dist 都是最短情况<br>                {<br>                    dist[id]=dist[x]+wi;<br>                    if(!vis[id])<br>                    {<br>                        q.push(id);<br>                        vis[id]=1;<br>                    }<br>                }<br>            }<br>        }<br>        cout&lt;&lt;dist[e]&lt;&lt;endl;<br>    }<br>    int main ()<br>    {<br>        int u,V,w;<br>        while(~scanf(“%d %d”,&amp;n,&amp;m))<br>        {<br>            for(int i=0; i&lt;m; i++)<br>            {<br>                scanf(“%d %d %d”,&amp;u,&amp;V,&amp;w);<br>                a.id=V;<br>                a.wi=w;<br>                v[u].push_back(a);<br>                b.id=u;<br>                b.wi=w;<br>                v[V].push_back(b);<br>            }<br>            int s,e;<br>            cin &gt;&gt;s&gt;&gt;e;<br>            SPFA(s,e);<br>        }<br>    }</p>
 
       
     </div>
@@ -530,7 +464,7 @@ int main ()
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">139</span>
+                  <span class="site-state-item-count">137</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -541,7 +475,7 @@ int main ()
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -552,7 +486,7 @@ int main ()
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

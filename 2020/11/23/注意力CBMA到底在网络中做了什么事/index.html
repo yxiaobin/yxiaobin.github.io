@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="注意力CBMA到底在网络中做了什么事 CBMA网络架构 ![](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200603162817846.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9n">
+<meta name="description" content="注意力CBMA到底在网络中做了什么事 CBMA网络架构   通道注意力">
 <meta property="og:type" content="article">
 <meta property="og:title" content="注意力CBMA到底在网络中做了什么事">
 <meta property="og:url" content="https://yxiaobin.github.io/2020/11/23/%E6%B3%A8%E6%84%8F%E5%8A%9BCBMA%E5%88%B0%E5%BA%95%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%B8%AD%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%E4%BA%8B/index.html">
 <meta property="og:site_name" content="杨小宾的个人博客">
-<meta property="og:description" content="注意力CBMA到底在网络中做了什么事 CBMA网络架构 ![](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200603162817846.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9n">
+<meta property="og:description" content="注意力CBMA到底在网络中做了什么事 CBMA网络架构   通道注意力">
 <meta property="og:locale">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200603162817846.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200603163856177.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw==,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/20200603164706942.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw==,size_16,color_FFFFFF,t_70">
 <meta property="article:published_time" content="2020-11-23T08:22:11.000Z">
-<meta property="article:modified_time" content="2022-07-10T09:41:10.670Z">
+<meta property="article:modified_time" content="2022-07-11T03:14:29.680Z">
 <meta property="article:author" content="杨小宾">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://img-blog.csdnimg.cn/20200603162817846.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw==,size_16,color_FFFFFF,t_70">
 
 
 
@@ -304,8 +308,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0%E6%96%87%E7%AB%A0%E6%A0%87%E7%AD%BE/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习文章标签</span>
+                  <a href="/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
                   </a>
                 </span>
 
@@ -347,16 +351,14 @@
 
       
         <h3 id="注意力CBMA到底在网络中做了什么事"><a href="#注意力CBMA到底在网络中做了什么事" class="headerlink" title="注意力CBMA到底在网络中做了什么事"></a>注意力CBMA到底在网络中做了什么事</h3><ul>
-<li><h5 id="CBMA网络架构"><a href="#CBMA网络架构" class="headerlink" title="CBMA网络架构"></a>CBMA网络架构</h5><ul>
-<li><h5 id="https-img-blog-csdnimg-cn-20200603162817846-png-x-oss-process-image-watermark-type-ZmFuZ3poZW5naGVpdGk-shadow-10-text-aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw-size-16-color-FFFFFF-t-70"><a href="#https-img-blog-csdnimg-cn-20200603162817846-png-x-oss-process-image-watermark-type-ZmFuZ3poZW5naGVpdGk-shadow-10-text-aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw-size-16-color-FFFFFF-t-70" class="headerlink" title="![](https://img-blog.csdnimg.cn/20200603162817846.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw==,size_16,color_FFFFFF,t_70)"></a>![](<a target="_blank" rel="noopener" href="https://img-blog.csdnimg.cn/20200603162817846.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9n">https://img-blog.csdnimg.cn/20200603162817846.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9n</a><span id="more"></span>LmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw==,size_16,color_FFFFFF,t_70)</h5></li>
-<li><p>通道注意力 </p>
-</li>
+<li><h5 id="CBMA网络架构"><a href="#CBMA网络架构" class="headerlink" title="CBMA网络架构"></a>CBMA网络架构</h5><h5 id=""><a href="#" class="headerlink" title=""></a><img src="https://img-blog.csdnimg.cn/20200603162817846.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw==,size_16,color_FFFFFF,t_70" alt="img1"></h5><ul>
+<li>  通道注意力    <span id="more"></span> </li>
 </ul>
 </li>
 </ul>
-<p>![åœ¨è¿™é‡Œæ’å¥å›¾ç‰‡æè¿°](<a target="_blank" rel="noopener" href="https://img-/">https://img-</a><br>blog.csdnimg.cn/20200603163856177.png?x-oss-<br>process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw==,size_16,color_FFFFFF,t_70)</p>
+<p><img src="https://img-blog.csdnimg.cn/20200603163856177.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw==,size_16,color_FFFFFF,t_70" alt="img2"></p>
 <p>空间注意力：</p>
-<p>![åœ¨è¿™é‡Œæ’å¥å›¾ç‰‡æè¿°](<a target="_blank" rel="noopener" href="https://img-/">https://img-</a><br>blog.csdnimg.cn/20200603164706942.png?x-oss-<br>process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw==,size_16,color_FFFFFF,t_70)</p>
+<p><img src="https://img-blog.csdnimg.cn/20200603164706942.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw==,size_16,color_FFFFFF,t_70" alt="im"></p>
 <ul>
 <li><p>分析 </p>
 <ul>
@@ -368,14 +370,14 @@
 </ul>
 </li>
 </ul>
-<p>​ SENet也使用了通道注意力，<br>但SENet只采用了平均池化，没有采用最大池化。作者加入了最大池化的原因，在论文中写到是因为在实验中发现加入了最大池化效果更好，或许是因为加入了最大池化获取的信息更丰富。最大池化和平均池化都是global级的，因此相当于一个通道上所有的特征图会压缩成一个像素的特征，n个通道对应n个像素的特征。</p>
+<p> SENet也使用了通道注意力，<br>但SENet只采用了平均池化，没有采用最大池化。作者加入了最大池化的原因，在论文中写到是因为在实验中发现加入了最大池化效果更好，或许是因为加入了最大池化获取的信息更丰富。最大池化和平均池化都是global级的，因此相当于一个通道上所有的特征图会压缩成一个像素的特征，n个通道对应n个像素的特征。</p>
 <pre><code>  * 2.将池化后的输出经过多层感知器(全连接层) 
 </code></pre>
 <p>作用是学习参数</p>
 <pre><code>  * 3.经过一个softmax函数 
 </code></pre>
 <p>目的是获取重要程度</p>
-<h6 id="为什么起作用："><a href="#为什么起作用：" class="headerlink" title="为什么起作用："></a>为什么起作用：</h6><h6 id=""><a href="#" class="headerlink" title=""></a></h6><p>注意力机制实际上就是集中注意到某一个局部，换句话说就是不平等的对待总体的输入，例如，对于一个通道注意力模块来说，对于某特征图输入的所有通道的特征图来说，重视程度是不同的，对于某些通道更重视，权重更大，对于另外某些通道来说就不重视，权重较小，softmax函数的作用就是生成对于各个通道重视程度的概率</p>
+<h6 id="为什么起作用："><a href="#为什么起作用：" class="headerlink" title="为什么起作用："></a>为什么起作用：</h6><h6 id="-1"><a href="#-1" class="headerlink" title=""></a></h6><p>注意力机制实际上就是集中注意到某一个局部，换句话说就是不平等的对待总体的输入，例如，对于一个通道注意力模块来说，对于某特征图输入的所有通道的特征图来说，重视程度是不同的，对于某些通道更重视，权重更大，对于另外某些通道来说就不重视，权重较小，softmax函数的作用就是生成对于各个通道重视程度的概率</p>
 <pre><code>* 空间注意力 
 
   * 首先沿着通道级别最最大池化和平均池化 
@@ -498,7 +500,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">139</span>
+                  <span class="site-state-item-count">137</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -509,7 +511,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -520,7 +522,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -569,7 +571,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9BCBMA%E5%88%B0%E5%BA%95%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%B8%AD%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%E4%BA%8B"><span class="nav-number">1.</span> <span class="nav-text">注意力CBMA到底在网络中做了什么事</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CBMA%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="nav-number">1.0.1.</span> <span class="nav-text">CBMA网络架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#https-img-blog-csdnimg-cn-20200603162817846-png-x-oss-process-image-watermark-type-ZmFuZ3poZW5naGVpdGk-shadow-10-text-aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw-size-16-color-FFFFFF-t-70"><span class="nav-number">1.0.2.</span> <span class="nav-text">![](https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20200603162817846.png?x-oss-process&#x3D;image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80MjkwNzQ3Mw&#x3D;&#x3D;,size_16,color_FFFFFF,t_70)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%B5%B7%E4%BD%9C%E7%94%A8%EF%BC%9A"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">为什么起作用：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link"><span class="nav-number">1.0.2.2.</span> <span class="nav-text"></span></a></li></ol></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E5%8A%9BCBMA%E5%88%B0%E5%BA%95%E5%9C%A8%E7%BD%91%E7%BB%9C%E4%B8%AD%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%E4%BA%8B"><span class="nav-number">1.</span> <span class="nav-text">注意力CBMA到底在网络中做了什么事</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CBMA%E7%BD%91%E7%BB%9C%E6%9E%B6%E6%9E%84"><span class="nav-number">1.0.1.</span> <span class="nav-text">CBMA网络架构</span></a></li><li class="nav-item nav-level-5"><a class="nav-link"><span class="nav-number">1.0.2.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%B5%B7%E4%BD%9C%E7%94%A8%EF%BC%9A"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">为什么起作用：</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#-1"><span class="nav-number">1.0.2.2.</span> <span class="nav-text"></span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>
