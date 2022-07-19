@@ -251,6 +251,176 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2017/08/15/%E5%A4%A7%E6%95%B0%E5%8F%96%E6%A8%A1%EF%BC%8C%E5%BF%AB%E9%80%9F%E5%B9%82%E5%8F%96%E6%A8%A1%E6%9D%BF%E5%AD%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨小宾的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/15/%E5%A4%A7%E6%95%B0%E5%8F%96%E6%A8%A1%EF%BC%8C%E5%BF%AB%E9%80%9F%E5%B9%82%E5%8F%96%E6%A8%A1%E6%9D%BF%E5%AD%90/" itemprop="url">大数取模，快速幂取模板子</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T10:38:51+08:00">
+                2017-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>大数取模模板：</p>
+<pre><code>    while(scanf(&quot;%s&quot;, num) != EOF)  
+       &#123;  
+           int len = strlen(num);  
+           __int64 ans = 0;  
+           for(int i = 0; i &lt; len; ++i)  
+ &lt;!-- more --&gt;          &#123;  
+               ans = ans*10 + (num[i]-&#39;0&#39;);  
+               ans %= MODZ;  
+           &#125;  
+            
+       &#125;  
+</code></pre>
+<p>针对数字位数超过最大整数范围限制的数进行取模操作，每次对一位取模</p>
+<p>根据 (ab)%mod=（a%mod）*(b%mod);把大数换为字符串处理，之后对每一位数字进行取模</p>
+<p>整数快速幂取模：</p>
+<pre><code>    long mi(long a,long k,long M)  
+    &#123;  
+        long b=1;  
+        while(k&gt;=1)&#123;  
+            if(k%2==1)&#123;  
+                b=a*b%M;  
+            &#125;  
+            a=(a%M)*(a%M)%M;  
+            k/=2;  
+        &#125;  
+        return b;  
+    &#125;  
+</code></pre>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2017/08/15/A%20water%20problem--------%E5%A4%A7%E6%95%B0%E5%8F%96%E6%A8%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1556,152 +1726,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2017/08/09/FatMouse's%20Speed%20HDU%20-%201160%20--dp%E7%9A%84%E8%B7%AF%E5%BE%84%E8%AE%B0%E5%BF%86%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨小宾的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/09/FatMouse's%20Speed%20HDU%20-%201160%20--dp%E7%9A%84%E8%B7%AF%E5%BE%84%E8%AE%B0%E5%BF%86%E9%97%AE%E9%A2%98/" itemprop="url">FatMouse's Speed HDU - 1160 --dp的路径记忆问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T09:48:24+08:00">
-                2017-08-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>FatMouse believes that the fatter a mouse is, the faster it runs. To disprove<br>this, you want to take the data on a collection of mice and put as large a<br>subset of this data as possible into a sequence
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/09/FatMouse's%20Speed%20HDU%20-%201160%20--dp%E7%9A%84%E8%B7%AF%E5%BE%84%E8%AE%B0%E5%BF%86%E9%97%AE%E9%A2%98/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1756,7 +1780,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">142</span>
+                  <span class="site-state-item-count">143</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
