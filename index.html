@@ -251,161 +251,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2022/07/19/%E2%80%9D%E9%93%BE%E8%A1%A8%E6%88%90%E7%8E%AF%E9%97%AE%E9%A2%98%E2%80%9C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨小宾的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2022/07/19/%E2%80%9D%E9%93%BE%E8%A1%A8%E6%88%90%E7%8E%AF%E9%97%AE%E9%A2%98%E2%80%9C/" itemprop="url">链表成环问题</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-07-19T14:28:19+08:00">
-                2022-07-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>[toc]</p>
-<h1 id="1-环形链表"><a href="#1-环形链表" class="headerlink" title="1.环形链表"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-cycle/">1.环形链表</a></h1><ul>
-<li><p>给你一个链表的头节点 head ，<strong>判断链表中是否有环</strong>。</p>
-<p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：pos 不作为参数进行传递 。仅仅是为了标识链表的实际情况。</p>
-<p>如果链表中存在环 ，则返回 true 。 否则，返回 false 。</p>
-</li>
-<li><p>示例</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [3,2,0,-4], pos = 1</span><br><span class="line">输出：true</span><br><span class="line">解释：链表中有一个环，其尾部连接到第二个节点。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1,2], pos = 0</span><br><span class="line">输出：true</span><br><span class="line">解释：链表中有一个环，其尾部连接到第一个节点。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1], pos = -1</span><br><span class="line">输出：false</span><br><span class="line">解释：链表中没有环。</span><br></pre></td></tr></table></figure></li>
-<li><p>方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">遍历链表的过程中，将每一个节点加入hashmap或者set， 再加入之前检查hashmap或set中是否已有此节点，有则表示存在环。空间复杂度O(N)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 两个链表，均指向头节点，其中一个节点一次走两步，另一个一次走一步。如果存在环，那么他们总会相遇。</span></span><br><span class="line"><span class="comment">* 跑圈，一个人的速度是另一个人的一倍，肯定会相遇。O(1)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">hasCycle</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">a</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">b</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="keyword">while</span>(a!=<span class="literal">null</span> &amp;&amp; a.next!=<span class="literal">null</span>)&#123;</span><br><span class="line">            a = a.next.next;</span><br><span class="line">            b=b.next;</span><br><span class="line">            <span class="keyword">if</span>(a==b)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="2-环形链表-II"><a href="#2-环形链表-II" class="headerlink" title="2.环形链表 II"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-cycle-ii/">2.环形链表 II</a></h1><ul>
-<li><p>给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</p>
-<p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。</p>
-<p>不允许修改 链表。</p>
-</li>
-<li><p>示例</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [3,2,0,-4], pos = 1</span><br><span class="line">输出：返回索引为 1 的链表节点</span><br><span class="line">解释：链表中有一个环，其尾部连接到第二个节点。</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1,2], pos = 0</span><br><span class="line">输出：返回索引为 0 的链表节点</span><br><span class="line">解释：链表中有一个环，其尾部连接到第一个节点</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [<span class="number">1</span>], pos = -<span class="number">1</span></span><br><span class="line">输出：返回 <span class="literal">null</span></span><br><span class="line">解释：链表中没有环。</span><br></pre></td></tr></table></figure></li>
-<li><p>方法：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">遍历链表的过程中，将每一个节点加入hashmap或者set， 再加入之前检查hashmap或set中是否已有此节点，有则表示存在环。空间复杂度O(N)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//快慢指针法</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">detectCycle</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">a</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">b</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="keyword">while</span>(a!=<span class="literal">null</span> &amp;&amp; a.next!=<span class="literal">null</span>)&#123;</span><br><span class="line">            a = a.next.next;</span><br><span class="line">            b=b.next;</span><br><span class="line">            <span class="keyword">if</span>(a==b)&#123;</span><br><span class="line">                a=head;</span><br><span class="line">                <span class="keyword">while</span>(a!=b)&#123;</span><br><span class="line">                    a=a.next;</span><br><span class="line">                    b=b.next;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> a;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><img src="E:\desktop\JAVA-master\pic\链表成环.jpg" alt="链表成环"></p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2022/07/17/leetcode%E7%AC%AC302%E5%9C%BA%E5%91%A8%E8%B5%9B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -824,6 +669,161 @@
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2022/04/19/%E2%80%9D%E9%93%BE%E8%A1%A8%E6%88%90%E7%8E%AF%E9%97%AE%E9%A2%98%E2%80%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨小宾的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2022/04/19/%E2%80%9D%E9%93%BE%E8%A1%A8%E6%88%90%E7%8E%AF%E9%97%AE%E9%A2%98%E2%80%9C/" itemprop="url">链表成环问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-04-19T14:28:19+08:00">
+                2022-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>[toc]</p>
+<h1 id="1-环形链表"><a href="#1-环形链表" class="headerlink" title="1.环形链表"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-cycle/">1.环形链表</a></h1><ul>
+<li><p>给你一个链表的头节点 head ，<strong>判断链表中是否有环</strong>。</p>
+<p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。注意：pos 不作为参数进行传递 。仅仅是为了标识链表的实际情况。</p>
+<p>如果链表中存在环 ，则返回 true 。 否则，返回 false 。</p>
+</li>
+<li><p>示例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [3,2,0,-4], pos = 1</span><br><span class="line">输出：true</span><br><span class="line">解释：链表中有一个环，其尾部连接到第二个节点。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1,2], pos = 0</span><br><span class="line">输出：true</span><br><span class="line">解释：链表中有一个环，其尾部连接到第一个节点。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1], pos = -1</span><br><span class="line">输出：false</span><br><span class="line">解释：链表中没有环。</span><br></pre></td></tr></table></figure></li>
+<li><p>方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">遍历链表的过程中，将每一个节点加入hashmap或者set， 再加入之前检查hashmap或set中是否已有此节点，有则表示存在环。空间复杂度O(N)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 两个链表，均指向头节点，其中一个节点一次走两步，另一个一次走一步。如果存在环，那么他们总会相遇。</span></span><br><span class="line"><span class="comment">* 跑圈，一个人的速度是另一个人的一倍，肯定会相遇。O(1)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">hasCycle</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">a</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">b</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="keyword">while</span>(a!=<span class="literal">null</span> &amp;&amp; a.next!=<span class="literal">null</span>)&#123;</span><br><span class="line">            a = a.next.next;</span><br><span class="line">            b=b.next;</span><br><span class="line">            <span class="keyword">if</span>(a==b)&#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="2-环形链表-II"><a href="#2-环形链表-II" class="headerlink" title="2.环形链表 II"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/linked-list-cycle-ii/">2.环形链表 II</a></h1><ul>
+<li><p>给定一个链表的头节点  head ，返回链表开始入环的第一个节点。 如果链表无环，则返回 null。</p>
+<p>如果链表中有某个节点，可以通过连续跟踪 next 指针再次到达，则链表中存在环。 为了表示给定链表中的环，评测系统内部使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。如果 pos 是 -1，则在该链表中没有环。注意：pos 不作为参数进行传递，仅仅是为了标识链表的实际情况。</p>
+<p>不允许修改 链表。</p>
+</li>
+<li><p>示例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [3,2,0,-4], pos = 1</span><br><span class="line">输出：返回索引为 1 的链表节点</span><br><span class="line">解释：链表中有一个环，其尾部连接到第二个节点。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [1,2], pos = 0</span><br><span class="line">输出：返回索引为 0 的链表节点</span><br><span class="line">解释：链表中有一个环，其尾部连接到第一个节点</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：head = [<span class="number">1</span>], pos = -<span class="number">1</span></span><br><span class="line">输出：返回 <span class="literal">null</span></span><br><span class="line">解释：链表中没有环。</span><br></pre></td></tr></table></figure></li>
+<li><p>方法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">遍历链表的过程中，将每一个节点加入hashmap或者set， 再加入之前检查hashmap或set中是否已有此节点，有则表示存在环。空间复杂度O(N)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//快慢指针法</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> ListNode <span class="title function_">detectCycle</span><span class="params">(ListNode head)</span> &#123;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">a</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="type">ListNode</span> <span class="variable">b</span> <span class="operator">=</span> head;</span><br><span class="line">        <span class="keyword">while</span>(a!=<span class="literal">null</span> &amp;&amp; a.next!=<span class="literal">null</span>)&#123;</span><br><span class="line">            a = a.next.next;</span><br><span class="line">            b=b.next;</span><br><span class="line">            <span class="keyword">if</span>(a==b)&#123;</span><br><span class="line">                a=head;</span><br><span class="line">                <span class="keyword">while</span>(a!=b)&#123;</span><br><span class="line">                    a=a.next;</span><br><span class="line">                    b=b.next;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">return</span> a;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="E:\desktop\JAVA-master\pic\链表成环.jpg" alt="链表成环"></p>
+</li>
+</ul>
+
+          
         
       
     </div>
