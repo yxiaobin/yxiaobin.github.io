@@ -251,6 +251,234 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2017/08/15/B%20-%20Buffcraft%20Gym%20-%20100531B---%E6%9A%B4%E5%8A%9B%E6%90%9C%E7%B4%A2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨小宾的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/08/15/B%20-%20Buffcraft%20Gym%20-%20100531B---%E6%9A%B4%E5%8A%9B%E6%90%9C%E7%B4%A2/" itemprop="url">B - Buffcraft Gym - 100531B---暴力搜索</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-15T21:33:11+08:00">
+                2017-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="传送门：https-cn-vjudge-net-problem-Gym-100531B"><a href="#传送门：https-cn-vjudge-net-problem-Gym-100531B" class="headerlink" title="传送门：https://cn.vjudge.net/problem/Gym-100531B"></a>传送门：<a target="_blank" rel="noopener" href="https://cn.vjudge.net/problem/Gym-100531B">https://cn.vjudge.net/problem/Gym-100531B</a></h1><p>注意 ：  </p>
+<p>对k个状态进行枚举就可以了  </p>
+<p>第一组测试样例中的输出顺序是可以换的，没有要求</p>
+<p>需要用到 long long</p>
+<p>和需要用数组存不然避免超时  </p>
+<pre><code>#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#in&lt;!-- more --&gt;clude &lt;cstring&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+struct node
+&#123;
+    int x;
+    int id;
+&#125; a[120000], b[120000];//数组需要开的大一点儿
+long long int sum[120000];//第一种直接加的求和
+long long int ans[120000];//第二种百分比的求和
+int cmp ( node a,node b)
+&#123;
+    return a.x&gt;b.x;
+&#125;
+double solve(int n, long long int x,long long  int y)// 注意，x y的数据类型 long long
+&#123;
+    double k=((n+x)*(100+y)/100.0);
+    return k;
+&#125;
+int main ()
+&#123;
+    freopen(&quot;buffcraft.in&quot;, &quot;r&quot;, stdin);
+    freopen(&quot;buffcraft.out&quot;, &quot;w&quot;, stdout);
+    int n,m,x,y;
+    scanf(&quot;%d %d %d %d&quot;,&amp;n,&amp;m,&amp;x,&amp;y);
+    for(int i=0; i&lt;x; i++)
+    &#123;
+        scanf(&quot;%d&quot;,&amp;a[i].x);
+        a[i].id=i+1;
+    &#125;
+    for(int i=0; i&lt;y; i++)
+    &#123;
+        scanf(&quot;%d&quot;,&amp;b[i].x);
+        b[i].id=i+1;
+    &#125;
+    sort(a,a+x,cmp);
+    sort(b,b+y,cmp);
+    sum[0]=a[0].x;
+    ans[0]=b[0].x;
+    for(int i=1;i&lt;x;i++)
+    &#123;
+        sum[i]=sum[i-1]+a[i].x; //存到没一状态的和
+    &#125;
+    for(int i=1;i&lt;y;i++)
+    &#123;
+        ans[i]=ans[i-1]+b[i].x;
+    &#125;
+    int p=0,q=0;
+    double M;
+    M=0;
+    for(int i=0; i&lt;=x; i++)
+    &#123;
+        if (i&gt;m) break; //注意 如果break ，会多跑很多超时
+        int j=m-i;
+        if(j&gt;y) j=y; // j&gt;y 并不能取break，因为很可能此时的第一种还可以多取，第二种只不过只能取y种
+        long long sum1, sum2;
+        if(i==0) sum1=0;
+        else  sum1=sum[i-1];
+        if(j==0) sum2=0;
+        else  sum2=ans[j-1];
+        double  Max=solve(n,sum1,sum2);
+        if(Max&gt;M)
+        &#123;
+            M=Max;
+            p=i;
+            q=j;
+        &#125;
+    &#125;
+    printf(&quot;%d %d\n&quot;,p,q);
+    for(int i=0; i&lt;p; i++)
+    &#123;
+        printf(&quot;%d%c&quot;,a[i].id, i==p-1?&#39;\n&#39;:&#39; &#39;);
+    &#125;
+    for(int i=0; i&lt;q; i++)
+    &#123;
+        printf(&quot;%d%c&quot;,b[i].id, i==q-1?&#39;\n&#39;:&#39; &#39;);
+    &#125;
+    return 0;
+&#125;
+</code></pre>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2017/08/15/D%20-%20Digits%20Gym%20-%20100531D-----%E6%9A%B4%E5%8A%9B%E6%90%9C%E7%B4%A2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1622,152 +1850,6 @@ int main ()
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2017/08/09/Treats%20for%20the%20Cows---%E5%8C%BA%E9%97%B4dp--%E9%80%86%E5%BA%8F%E6%8E%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="杨小宾的个人博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/08/09/Treats%20for%20the%20Cows---%E5%8C%BA%E9%97%B4dp--%E9%80%86%E5%BA%8F%E6%8E%A8/" itemprop="url">Treats for the Cows---区间dp--逆序推</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-09T21:30:10+08:00">
-                2017-08-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" itemprop="url" rel="index">
-                    <span itemprop="name">数据结构</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Description<br>FJ has purchased N (1 &lt;= N &lt;= 2000) yummy treats for the cows who get money<br>for giving vast amounts of milk. FJ sells one treat per day and wants to<br>maximize the money he receives over a
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/08/09/Treats%20for%20the%20Cows---%E5%8C%BA%E9%97%B4dp--%E9%80%86%E5%BA%8F%E6%8E%A8/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1822,7 +1904,7 @@ int main ()
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">144</span>
+                  <span class="site-state-item-count">145</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
