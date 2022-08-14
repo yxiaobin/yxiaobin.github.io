@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="leetcode," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="矩阵中的局部最大值 给你一个大小为 n x n 的整数矩阵 grid 。 生成一个大小为 (n - 2) x (n - 2) 的整数矩阵  maxLocal ，并满足： maxLocal[i][j] 等于 grid 中以 i + 1 行和 j + 1 列为中心的 3 x 3 矩阵中的 最大值 。换句话说，我们希望找出 grid 中每个 3 x 3 矩阵中的最大值。 返回生成的矩阵。  样例 123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="周赛306">
+<meta property="og:url" content="https://yxiaobin.github.io/2022/08/14/%E5%91%A8%E8%B5%9B306/index.html">
+<meta property="og:site_name" content="杨小宾的个人博客">
+<meta property="og:description" content="矩阵中的局部最大值 给你一个大小为 n x n 的整数矩阵 grid 。 生成一个大小为 (n - 2) x (n - 2) 的整数矩阵  maxLocal ，并满足： maxLocal[i][j] 等于 grid 中以 i + 1 行和 j + 1 列为中心的 3 x 3 矩阵中的 最大值 。换句话说，我们希望找出 grid 中每个 3 x 3 矩阵中的最大值。 返回生成的矩阵。  样例 123">
+<meta property="og:locale">
+<meta property="og:image" content="https://assets.leetcode.com/uploads/2022/06/20/image-20220620195403-1.png">
+<meta property="article:published_time" content="2022-08-14T07:13:49.000Z">
+<meta property="article:modified_time" content="2022-08-14T08:06:47.539Z">
+<meta property="article:author" content="杨小宾">
+<meta property="article:tag" content="leetcode">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://assets.leetcode.com/uploads/2022/06/20/image-20220620195403-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://yxiaobin.github.io/2022/08/14/周赛306/"/>
+
+
+
+
+
+  <title>周赛306 | 杨小宾的个人博客</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨小宾的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yxiaobin.github.io/2022/08/14/%E5%91%A8%E8%B5%9B306/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨小宾的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">周赛306</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2022-08-14T15:13:49+08:00">
+                2022-08-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="矩阵中的局部最大值"><a href="#矩阵中的局部最大值" class="headerlink" title="矩阵中的局部最大值"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/largest-local-values-in-a-matrix/">矩阵中的局部最大值</a></h1><ul>
+<li><p>给你一个大小为 n x n 的整数矩阵 grid 。</p>
+<p>生成一个大小为 (n - 2) x (n - 2) 的整数矩阵  maxLocal ，并满足：</p>
+<p>maxLocal[i][j] 等于 grid 中以 i + 1 行和 j + 1 列为中心的 3 x 3 矩阵中的 最大值 。<br>换句话说，我们希望找出 grid 中每个 3 x 3 矩阵中的最大值。</p>
+<p>返回生成的矩阵。</p>
+</li>
+<li><p>样例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">输入：grid = [[9,9,8,1],[5,6,2,6],[8,2,6,4],[6,2,2,2]]</span><br><span class="line">输出：[[9,9],[8,6]]</span><br><span class="line">解释：原矩阵和生成的矩阵如上图所示。</span><br><span class="line">注意，生成的矩阵中，每个值都对应 grid 中一个相接的 3 x 3 矩阵的最大值。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>AC代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 双重for 循环，模拟就好了，找附近9个点的最大值，时间复杂度 O(n*n*9)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span>[][] largestLocal(<span class="type">int</span>[][] grid) &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> grid.length;</span><br><span class="line">        <span class="type">int</span> [][] res = <span class="keyword">new</span> <span class="title class_">int</span>[n-<span class="number">2</span>][n-<span class="number">2</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n-<span class="number">2</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j=<span class="number">0</span>;j&lt;n-<span class="number">2</span>;j++)&#123;</span><br><span class="line">                res[i][j] = f(grid,i+<span class="number">1</span>,j+<span class="number">1</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">f</span><span class="params">(<span class="type">int</span>[][]a, <span class="type">int</span> x, <span class="type">int</span> y)</span>&#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">max</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=x-<span class="number">1</span>;i&lt;=x+<span class="number">1</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="type">int</span> j= y-<span class="number">1</span>;j&lt;=y+<span class="number">1</span>;j++)&#123;</span><br><span class="line">                max = Math.max(max,a[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> max;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="6149-边积分最高的节点"><a href="#6149-边积分最高的节点" class="headerlink" title="6149. 边积分最高的节点"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/node-with-highest-edge-score/">6149. 边积分最高的节点</a></h1><ul>
+<li><p>给你一个有向图，图中有 <code>n</code> 个节点，节点编号从 <code>0</code> 到 <code>n - 1</code> ，其中每个节点都 <strong>恰有一条</strong> 出边。</p>
+<p>图由一个下标从 0 开始、长度为 n 的整数数组 edges 表示，其中 edges[i] 表示存在一条从节点 i 到节点 edges[i] 的 有向 边。</p>
+<p>节点 i 的 边积分 定义为：所有存在一条指向节点 i 的边的节点的 编号 总和。</p>
+<p>返回 边积分 最高的节点。如果多个节点的 边积分 相同，返回编号 <strong>最小</strong> 的那个。</p>
+</li>
+<li><p>样例</p>
+<p><img src="https://assets.leetcode.com/uploads/2022/06/20/image-20220620195403-1.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">输入：edges = [1,0,0,0,0,7,7,5]</span><br><span class="line">输出：7</span><br><span class="line">解释：</span><br><span class="line">- 节点 1、2、3 和 4 都有指向节点 0 的边，节点 0 的边积分等于 1 + 2 + 3 + 4 = 10 。</span><br><span class="line">- 节点 0 有一条指向节点 1 的边，节点 1 的边积分等于 0 。</span><br><span class="line">- 节点 7 有一条指向节点 5 的边，节点 5 的边积分等于 7 。</span><br><span class="line">- 节点 5 和 6 都有指向节点 7 的边，节点 7 的边积分等于 5 + 6 = 11 。</span><br><span class="line">节点 7 的边积分最高，所以返回 7 。</span><br></pre></td></tr></table></figure></li>
+<li><p>AC 代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">*  有向图，其实就是对于某个节点X，找到所有指向该节点的其他节点，并对他们的下标求和</span></span><br><span class="line"><span class="comment">*  注意 long， int会爆掉</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="comment">// hashmap，存下标 ， ON*N</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">edgeScore</span><span class="params">(<span class="type">int</span>[] a)</span> &#123;</span><br><span class="line">        HashMap&lt;Integer,Set&lt;Integer&gt;&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> a.length;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">from</span> <span class="operator">=</span> i;</span><br><span class="line">            <span class="type">int</span> <span class="variable">to</span> <span class="operator">=</span> a[i];</span><br><span class="line">            Set&lt;Integer&gt; set = map.getOrDefault(to,<span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;());</span><br><span class="line">            set.add(from);</span><br><span class="line">            map.put(to, set);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">node</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="type">long</span> <span class="variable">max</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            Set&lt;Integer&gt; set = map.get(i);</span><br><span class="line">            <span class="keyword">if</span>(set == <span class="literal">null</span>)&#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="type">long</span> <span class="variable">val</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">for</span>(Integer x : set)&#123;</span><br><span class="line">                    val +=(<span class="type">long</span>)x;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span>(val &gt; max)&#123;</span><br><span class="line">                node = i;</span><br><span class="line">                max = val;</span><br><span class="line">                &#125;   </span><br><span class="line">            &#125;     </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Hashmap 存下标和，复杂度ON</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">edgeScore</span><span class="params">(<span class="type">int</span>[] a)</span> &#123;</span><br><span class="line">        HashMap&lt;Integer,Long&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> a.length;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="type">int</span> <span class="variable">from</span> <span class="operator">=</span> i;</span><br><span class="line">            <span class="type">int</span> <span class="variable">to</span> <span class="operator">=</span> a[i];</span><br><span class="line">            <span class="type">long</span> <span class="variable">val</span> <span class="operator">=</span> map.getOrDefault(to,<span class="number">0L</span>);</span><br><span class="line">            map.put(to, val +=from);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">int</span> <span class="variable">node</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">        <span class="type">long</span> <span class="variable">max</span> <span class="operator">=</span> -<span class="number">1</span>;    </span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="type">long</span> <span class="variable">val</span> <span class="operator">=</span> map.getOrDefault(i,<span class="number">0L</span>);</span><br><span class="line">            <span class="keyword">if</span>(val &gt; max)&#123;</span><br><span class="line">                node = i;</span><br><span class="line">                max = val;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> node;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="6150-根据模式串构造最小数字"><a href="#6150-根据模式串构造最小数字" class="headerlink" title="6150. 根据模式串构造最小数字"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/construct-smallest-number-from-di-string/">6150. 根据模式串构造最小数字</a></h1><ul>
+<li><p>给你下标从 0 开始、长度为 n 的字符串 pattern ，它包含两种字符，’I’ 表示 上升 ，’D’ 表示 下降 。</p>
+<p>你需要构造一个下标从 0 开始长度为 n + 1 的字符串，且它要满足以下条件：</p>
+<p>num 包含数字 ‘1’ 到 ‘9’ ，其中每个数字 至多 使用一次。<br>如果 pattern[i] == ‘I’ ，那么 num[i] &lt; num[i + 1] 。<br>如果 pattern[i] == ‘D’ ，那么 num[i] &gt; num[i + 1] 。<br>请你返回满足上述条件字典序 最小 的字符串 num。</p>
+</li>
+<li><p>样例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">输入：pattern = &quot;IIIDIDDD&quot;</span><br><span class="line">输出：&quot;123549876&quot;</span><br><span class="line">解释：</span><br><span class="line">下标 0 ，1 ，2 和 4 处，我们需要使 num[i] &lt; num[i+1] 。</span><br><span class="line">下标 3 ，5 ，6 和 7 处，我们需要使 num[i] &gt; num[i+1] 。</span><br><span class="line">一些可能的 num 的值为 &quot;245639871&quot; ，&quot;135749862&quot; 和 &quot;123849765&quot; 。</span><br><span class="line">&quot;123549876&quot; 是满足条件最小的数字。</span><br><span class="line">注意，&quot;123414321&quot; 不是可行解因为数字 &#x27;1&#x27; 使用次数超过 1 次。</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>AC 代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 思路就是 我先构造一个最小字符串123456..n， 其先天满足I的条件</span></span><br><span class="line"><span class="comment">* 当遇到D的条件的时候，为了满足最小字典序的要求，我把当前字符和下一个字符进行交换。</span></span><br><span class="line"><span class="comment">* 交换完后还需要检查，前一个字符是否是D，如果是的话，还需要进一步交换。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">smallestNumber</span><span class="params">(String s)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> s.length();</span><br><span class="line">        <span class="type">int</span>[] a= <span class="keyword">new</span> <span class="title class_">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            a[i] = i+<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="type">char</span> <span class="variable">ch</span> <span class="operator">=</span> s.charAt(i);</span><br><span class="line">            <span class="keyword">if</span>(ch==<span class="string">&#x27;D&#x27;</span>)&#123;</span><br><span class="line">                <span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> i;</span><br><span class="line">                <span class="keyword">while</span>(i&gt;=<span class="number">0</span> &amp;&amp; s.charAt(i) == <span class="string">&#x27;D&#x27;</span>  &amp;&amp; a[i]&lt;a[i+<span class="number">1</span>])&#123;</span><br><span class="line">                    <span class="type">int</span> <span class="variable">t</span> <span class="operator">=</span> a[i];</span><br><span class="line">                    a[i] = a[i+<span class="number">1</span>];</span><br><span class="line">                    a[i+<span class="number">1</span>] = t;    </span><br><span class="line">                    i--;</span><br><span class="line">                &#125;</span><br><span class="line">                i = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">StringBuilder</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">        <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;=n;i++)&#123;</span><br><span class="line">            sb.append(a[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> sb.toString();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="6151-统计特殊整数"><a href="#6151-统计特殊整数" class="headerlink" title="6151. 统计特殊整数"></a><a target="_blank" rel="noopener" href="https://leetcode.cn/problems/count-special-integers/">6151. 统计特殊整数</a></h1><ul>
+<li><p>如果一个正整数每一个数位都是 <strong>互不相同</strong> 的，我们称它是 <strong>特殊整数</strong> 。</p>
+<p>给你一个 <strong>正</strong> 整数 <code>n</code> ，请你返回区间 <code>[1, n]</code> 之间特殊整数的数目。</p>
+</li>
+<li><p>样例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 20</span><br><span class="line">输出：19</span><br><span class="line">解释：1 到 20 之间所有整数除了 11 以外都是特殊整数。所以总共有 19 个特殊整数。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 5</span><br><span class="line">输出：5</span><br><span class="line">解释：1 到 5 所有整数都是特殊整数。</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入：n = 135</span><br><span class="line">输出：110</span><br><span class="line">解释：从 1 到 135 总共有 110 个整数是特殊整数。</span><br><span class="line">不特殊的部分数字为：22 ，114 和 131 。</span><br></pre></td></tr></table></figure></li>
+<li><p>AC 代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">* 数位DP</span></span><br><span class="line"><span class="comment">* 时间复杂度 ： 状态个数* 专业个数</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Solution</span> &#123;</span><br><span class="line">    <span class="type">char</span> s[];</span><br><span class="line">    <span class="type">int</span> dp[][];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">countSpecialNumbers</span><span class="params">(<span class="type">int</span> n)</span> &#123;</span><br><span class="line">        s = Integer.toString(n).toCharArray();</span><br><span class="line">        <span class="type">var</span> <span class="variable">m</span> <span class="operator">=</span> s.length;</span><br><span class="line">        dp = <span class="keyword">new</span> <span class="title class_">int</span>[m][<span class="number">1</span> &lt;&lt; <span class="number">10</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">var</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; m; i++) Arrays.fill(dp[i], -<span class="number">1</span>);</span><br><span class="line">        <span class="keyword">return</span> f(<span class="number">0</span>, <span class="number">0</span>, <span class="literal">true</span>, <span class="literal">false</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="title function_">f</span><span class="params">(<span class="type">int</span> i, <span class="type">int</span> mask, <span class="type">boolean</span> isLimit, <span class="type">boolean</span> isNum)</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (i == s.length) <span class="keyword">return</span> isNum ? <span class="number">1</span> : <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (!isLimit &amp;&amp; isNum &amp;&amp; dp[i][mask] &gt;= <span class="number">0</span>) <span class="keyword">return</span> dp[i][mask];</span><br><span class="line">        <span class="type">var</span> <span class="variable">res</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">if</span> (!isNum) res = f(i + <span class="number">1</span>, mask, <span class="literal">false</span>, <span class="literal">false</span>); <span class="comment">// 可以跳过当前数位</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">d</span> <span class="operator">=</span> isNum ? <span class="number">0</span> : <span class="number">1</span>, up = isLimit ? s[i] - <span class="string">&#x27;0&#x27;</span> : <span class="number">9</span>; d &lt;= up; ++d) <span class="comment">// 枚举要填入的数字 d</span></span><br><span class="line">            <span class="keyword">if</span> ((mask &gt;&gt; d &amp; <span class="number">1</span>) == <span class="number">0</span>) <span class="comment">// d 不在 mask 中</span></span><br><span class="line">                res += f(i + <span class="number">1</span>, mask | (<span class="number">1</span> &lt;&lt; d), isLimit &amp;&amp; d == up, <span class="literal">true</span>);</span><br><span class="line">        <span class="keyword">if</span> (!isLimit &amp;&amp; isNum) dp[i][mask] = res;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/leetcode/" rel="tag"># leetcode</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2022/07/24/leetcode%E7%AC%AC303%E5%9C%BA%E5%91%A8%E8%B5%9B/" rel="next" title="leetcode第303场周赛">
+                <i class="fa fa-chevron-left"></i> leetcode第303场周赛
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">146</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yxiaobin" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="yxiaobin2016@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%A9%E9%98%B5%E4%B8%AD%E7%9A%84%E5%B1%80%E9%83%A8%E6%9C%80%E5%A4%A7%E5%80%BC"><span class="nav-number">1.</span> <span class="nav-text">矩阵中的局部最大值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6149-%E8%BE%B9%E7%A7%AF%E5%88%86%E6%9C%80%E9%AB%98%E7%9A%84%E8%8A%82%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">6149. 边积分最高的节点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6150-%E6%A0%B9%E6%8D%AE%E6%A8%A1%E5%BC%8F%E4%B8%B2%E6%9E%84%E9%80%A0%E6%9C%80%E5%B0%8F%E6%95%B0%E5%AD%97"><span class="nav-number">3.</span> <span class="nav-text">6150. 根据模式串构造最小数字</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6151-%E7%BB%9F%E8%AE%A1%E7%89%B9%E6%AE%8A%E6%95%B4%E6%95%B0"><span class="nav-number">4.</span> <span class="nav-text">6151. 统计特殊整数</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨小宾</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+
+
+
+   <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+        
+<div class="busuanzi-count">
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
